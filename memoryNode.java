@@ -75,4 +75,11 @@ public class memoryNode
 		int length = allocatedBits.length;
 		allocatedBits = new boolean[length];
 	}
+
+	//Accessor method for allocatedBits
+	//@return allocatedBits field.
+	public boolean[] getAllocationArray()
+	{
+		return allocatedBits;
+	}
 }
