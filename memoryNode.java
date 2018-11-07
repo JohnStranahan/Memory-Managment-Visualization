@@ -13,11 +13,11 @@ public class memoryNode
 	//@param previous: sets previous node
 	//@param next: sets next node.
 	//@param size: size for allocatedBits array
-	public memoryNode(memoryNode previous, memoryNode next, int size)
+	public memoryNode(memoryNode previous, memoryNode next, boolean[] allocatedBits)
 	{
 		this.previous = previous;
 		this.next = next;
-		allocatedBits = new boolean[size];
+		this.allocatedBits = allocatedBits;
 	}
 
 	//Constructor for setting up node with
