@@ -78,13 +78,21 @@ public class buddyAllocation
 		}
 		//If node is tail of the list, will set prev of first split to 
 		//temp prev.
-		else if(tempNext == null){
+		else if((tempPrevious != null) && tempNext == null){
 			memoryNode split1 = new memoryNode(tempPrevious,null,a);
 			memoryNode split2 = new memoryNode(split1,null,b);
-
 			split1.setNext(split2);
+			tempPrevious.setNext(split1);
+
+			System.out.println("Temp Previous: " + tempPrevious);
+			System.out.println("Temp Previous next: " + tempPrevious.getNext());
+			System.out.println("Split 1: " + split1);
+			System.out.println("Split 1 Previous: " + split1.getPrevious() + " Split1 next: " + split1.getNext());
+			System.out.println("Split 2: " + split2);
+			System.out.println("Split 2 Previous: " + split2.getPrevious() + " Split2 next: " + split2.getNext());
+
+
 			System.out.println("Doing the third condition");
 		}
-		System.out.println("Here.");
 	}
 }
