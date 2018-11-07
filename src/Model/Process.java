@@ -2,13 +2,13 @@ package Model;
 
 //This class represents a process object that will contain
 //a size and time to live.
-
-public class Process
+import java.util.*;
+public class Process implements Processinterface
 {
     private final String name;
     private int size;
     private int ttl;
-
+    private int pid;
     //Constructor for class process.
     //@param name: name of the process
     //@param size: size of the process
@@ -54,5 +54,17 @@ public class Process
     public int getTTL()
     {
         return ttl;
+    }
+
+    public void setPid(int pid)
+    {
+        this.pid = pid;
+    }
+
+    //Accessor for pid.
+    //@return pid the pid of the process.
+    public int getPid()
+    {
+        return pid;
     }
 }
