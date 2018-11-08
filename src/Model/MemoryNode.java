@@ -5,7 +5,7 @@ package Model;
 //stack. Each node has a reference to the previous
 //and next nodes in the stack.
 
-public class MemoryNode
+public class MemoryNode implements nodeInterface
 {
     private MemoryNode next;
     private MemoryNode previous;
