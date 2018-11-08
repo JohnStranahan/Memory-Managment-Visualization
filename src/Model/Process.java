@@ -3,7 +3,7 @@ package Model;
 //This class represents a process object that will contain
 //a size and time to live.
 import java.util.*;
-public class Process implements Processinterface
+public class Process
 {
     private final String name;
     private int size;

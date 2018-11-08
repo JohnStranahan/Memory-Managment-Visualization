@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0c09e22a-c1f8-49d9-8246-ff6d3bd41c73" name="Default" comment="updated and implement process interface">
-      <change afterPath="$PROJECT_DIR$/src/Model/Processinterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Model/NodeInterface.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Model/MemoryStack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/MemoryStack.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Model/Process.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/Process.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -17,26 +17,27 @@
     <session id="-785377048">
       <usages-collector id="statistics.file.extensions.open">
         <counts>
+          <entry key="NodeInterface" value="1" />
           <entry key="class" value="1" />
-          <entry key="java" value="4" />
+          <entry key="java" value="7" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="CLASS" value="1" />
-          <entry key="JAVA" value="4" />
+          <entry key="JAVA" value="8" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="Processinterface" value="161" />
-          <entry key="java" value="92" />
+          <entry key="java" value="677" />
           <entry key="txt" value="39" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="253" />
+          <entry key="JAVA" value="838" />
           <entry key="PLAIN_TEXT" value="39" />
         </counts>
       </usages-collector>
@@ -56,8 +57,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Model/Process.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="7" column="18" selection-start-line="7" selection-start-column="18" selection-end-line="7" selection-end-column="18" />
+            <state relative-caret-position="17">
+              <caret line="8" column="19" lean-forward="true" selection-start-line="8" selection-start-column="19" selection-end-line="8" selection-end-column="19" />
               <folding>
                 <element signature="e#709#710#0" expanded="true" />
                 <element signature="e#741#742#0" expanded="true" />
@@ -69,10 +70,45 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Model/NodeInterface.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="170">
+              <caret line="10" column="20" selection-start-line="10" selection-start-column="20" selection-end-line="10" selection-end-column="20" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Model/MemoryStack.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="140">
+              <caret line="29" lean-forward="true" selection-start-line="29" selection-end-line="29" />
+              <folding>
+                <element signature="e#213#214#0" expanded="true" />
+                <element signature="e#253#254#0" expanded="true" />
+                <element signature="e#434#435#0" expanded="true" />
+                <element signature="e#471#472#0" expanded="true" />
+                <element signature="e#506#507#0" expanded="true" />
+                <element signature="e#540#541#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Model/MemoryNode.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="17">
+              <caret line="3" column="23" lean-forward="true" selection-start-line="3" selection-start-column="23" selection-end-line="3" selection-end-column="23" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/buddyAllocation.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-727">
-              <caret line="25" column="9" selection-start-line="25" selection-start-column="9" selection-end-line="25" selection-end-column="9" />
+            <state relative-caret-position="204">
+              <caret line="15" column="9" lean-forward="true" selection-start-line="15" selection-start-column="9" selection-end-line="15" selection-end-column="9" />
               <folding>
                 <element signature="e#0#2194#0" expanded="true" />
               </folding>
@@ -80,7 +116,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/View/GUI.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="34">
@@ -90,31 +126,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/memoryNode.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="259">
-              <caret line="85" selection-start-line="85" selection-end-line="85" />
-              <folding>
-                <element signature="e#0#1864#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Model/MemoryNode.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-115">
-              <caret line="69" column="8" selection-start-line="69" selection-start-column="8" selection-end-line="69" selection-end-column="8" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Model/Processinterface.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="1" selection-start-line="1" selection-end-line="1" />
+            <state relative-caret-position="272">
+              <caret line="16" column="17" lean-forward="true" selection-start-line="16" selection-start-column="17" selection-end-line="16" selection-end-column="17" />
             </state>
           </provider>
         </entry>
@@ -145,6 +160,7 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>memor</find>
+      <find>package Model\;\n\npublic class MemoryStack \{\n    private MemoryNode head\;\n    private int numProcesses\;\n    private int allocatedMemory\;\n    public MemoryStack\(\)\n    \{\n        allocatedMemory\=0\;\n        numProcesses \=0\;\n        head \= null\;\n    \}\n    public boolean isEmpty\(\)\{\n        return numProcesses \=\= 0\;\n    \}\n    public void enterProcess\(Process process\)throws indexOutOfBoundsException\{\n        allocatedMemory \= allocatedMemory \+ process\.getSize\(\)\;\n\n    \}\n    public int getAllocatedMemory\(\)\{\n        return allocatedMemory\;\n    \}\n    public int getNumProcesses\(\)\{\n        return numProcesses\;\n    \}\n    public void removeProcess\(Process process\)throws indexOutOfBoundsException\{\n\n    \}\n    public String toString\(\)\{\n\n    \}\n    public void deAllocateAll\(\)\n    \{\n        \n        head \= null\;\n        numProcesses \= 0\;\n        allocatedMemory \=0\;\n    \}\n\}\n</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -163,9 +179,11 @@
         <option value="$PROJECT_DIR$/.idea/Memory-Managment-Visualization.iml" />
         <option value="$PROJECT_DIR$/src/Model/MemoryBlock.java" />
         <option value="$PROJECT_DIR$/src/Model/MemoryStructure.java" />
-        <option value="$PROJECT_DIR$/src/Model/MemoryNode.java" />
         <option value="$PROJECT_DIR$/src/Model/Processinterface" />
         <option value="$PROJECT_DIR$/src/Model/Process.java" />
+        <option value="$PROJECT_DIR$/src/Model/MemoryNode.java" />
+        <option value="$PROJECT_DIR$/src/Model/NodeInterface.java" />
+        <option value="$PROJECT_DIR$/src/Model/MemoryStack.java" />
       </list>
     </option>
   </component>
@@ -219,7 +237,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1541612381734" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1541694465404" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="SDKs" />
     <property name="project.structure.proportion" value="0.15" />
@@ -246,8 +264,7 @@
           <option name="mySupportsDeletion" value="false" />
           <option name="myCanBeAbsent" value="false" />
           <option name="myId" value="UPDATED" />
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/.idea/workspace.xml</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/Model/Process.java</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/buddyAllocation.java</PATH>
         </FILE-GROUP>
         <FILE-GROUP>
           <option name="myUpdateName" value="Created" />
@@ -255,12 +272,6 @@
           <option name="mySupportsDeletion" value="false" />
           <option name="myCanBeAbsent" value="false" />
           <option name="myId" value="CREATED" />
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/buddyAllocation.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/memoryNode.class</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/memoryNode.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/process.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/Model/MemoryNode.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/Model/MemoryStack.java</PATH>
         </FILE-GROUP>
         <FILE-GROUP>
           <option name="myUpdateName" value="Deleted" />
@@ -407,7 +418,14 @@
       <option name="project" value="LOCAL" />
       <updated>1540916069111</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="updated and implement process interface">
+      <created>1541612407563</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1541612407563</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -463,13 +481,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Model/MemoryStack.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" selection-start-line="9" selection-end-line="9" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/memoryNode.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="476">
@@ -477,40 +488,6 @@
           <folding>
             <element signature="e#0#1216#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Model/Processinterface.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" selection-start-line="1" selection-end-line="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Controller/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="8" selection-start-line="8" selection-end-line="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Model/Process.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="18" selection-start-line="7" selection-start-column="18" selection-end-line="7" selection-end-column="18" />
-          <folding>
-            <element signature="e#709#710#0" expanded="true" />
-            <element signature="e#741#742#0" expanded="true" />
-            <element signature="e#1187#1188#0" expanded="true" />
-            <element signature="e#1219#1220#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Model/MemoryNode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-115">
-          <caret line="69" column="8" selection-start-line="69" selection-start-column="8" selection-end-line="69" selection-end-column="8" />
         </state>
       </provider>
     </entry>
@@ -524,20 +501,76 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/View/GUI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="16" selection-start-line="2" selection-start-column="16" selection-end-line="2" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Model/Processinterface.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="17" lean-forward="true" selection-start-line="16" selection-start-column="17" selection-end-line="16" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Controller/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="8" selection-start-line="8" selection-end-line="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Model/Process.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="8" column="19" lean-forward="true" selection-start-line="8" selection-start-column="19" selection-end-line="8" selection-end-column="19" />
+          <folding>
+            <element signature="e#709#710#0" expanded="true" />
+            <element signature="e#741#742#0" expanded="true" />
+            <element signature="e#1187#1188#0" expanded="true" />
+            <element signature="e#1219#1220#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/buddyAllocation.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-727">
-          <caret line="25" column="9" selection-start-line="25" selection-start-column="9" selection-end-line="25" selection-end-column="9" />
+        <state relative-caret-position="204">
+          <caret line="15" column="9" lean-forward="true" selection-start-line="15" selection-start-column="9" selection-end-line="15" selection-end-column="9" />
           <folding>
             <element signature="e#0#2194#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/View/GUI.java">
+    <entry file="file://$PROJECT_DIR$/src/Model/MemoryNode.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="16" selection-start-line="2" selection-start-column="16" selection-end-line="2" selection-end-column="16" />
+        <state relative-caret-position="17">
+          <caret line="3" column="23" lean-forward="true" selection-start-line="3" selection-start-column="23" selection-end-line="3" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Model/NodeInterface.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="20" selection-start-line="10" selection-start-column="20" selection-end-line="10" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Model/MemoryStack.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="140">
+          <caret line="29" lean-forward="true" selection-start-line="29" selection-end-line="29" />
+          <folding>
+            <element signature="e#213#214#0" expanded="true" />
+            <element signature="e#253#254#0" expanded="true" />
+            <element signature="e#434#435#0" expanded="true" />
+            <element signature="e#471#472#0" expanded="true" />
+            <element signature="e#506#507#0" expanded="true" />
+            <element signature="e#540#541#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -581,7 +614,7 @@
       </state>
       <state key="JdkListConfigurable.UI">
         <settings>
-          <last-edited>10</last-edited>
+          <last-edited>IntelliJ IDEA Community Edition IC-182.4505.22</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
@@ -598,6 +631,7 @@
             <option name="proportions">
               <list>
                 <option value="0.2" />
+                <option value="0.6" />
               </list>
             </option>
           </splitter-proportions>
