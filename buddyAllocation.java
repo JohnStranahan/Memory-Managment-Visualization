@@ -62,29 +62,26 @@ public class buddyAllocation
 		        //Sets the field mNode, which will represent the head
 			//of the memoryNodes linked list. 
 		        this.mNode = split1;
-
-			System.out.println("Doing the first condition.");
 		}
 		//If node is neither head nor tail of the list,
 		//will set tempNext and tempPrev as parameters.
 		else if((tempPrevious != null) && (tempNext != null)){
+			//Creates new memoryNode and reassigns references to
+			// the previous and next nodes to insert the new new
+			// nodes in between the previous and next nodes.
 			memoryNode split1 = new memoryNode(tempPrevious,null,a);
 			tempPrevious.setNext(split1);
 			memoryNode split2 = new memoryNode(split1,tempNext,b);
 			split1.setNext(split2);
 			tempNext.setPrevious(split2);
-
-			System.out.println("Doing the second condition");
 		}
 		//If node is tail of the list, will set prev of first split to 
 		//temp prev.
-		else if(tempNext == null){
+		else if((tempPrevious != null) && tempNext == null){
 			memoryNode split1 = new memoryNode(tempPrevious,null,a);
 			memoryNode split2 = new memoryNode(split1,null,b);
-
 			split1.setNext(split2);
-			System.out.println("Doing the third condition");
+			tempPrevious.setNext(split1);
 		}
-		System.out.println("Here.");
 	}
 }
