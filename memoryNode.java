@@ -82,4 +82,20 @@ public class memoryNode
 	{
 		return allocatedBits;
 	}
+
+	//This method checks the allocation array
+	//to see if this object is allocated or
+	//not.
+	//@return true if allocated,
+	//false if not.
+	public boolean isAllocated()
+	{
+		for(int i = 0; i < allocatedBits.length; i++){
+			if(allocatedBits[i] == true){
+				return true;
+			}
+		}
+
+		return false;
+	}
 }
