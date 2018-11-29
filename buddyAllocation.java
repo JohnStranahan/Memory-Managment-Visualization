@@ -14,15 +14,6 @@ public class buddyAllocation
 		mNode = new memoryNode();
 	}
 
-	public void split(memoryNode toSplit)
-	{
-//		if((toSplit.getAllocationArray.length)%2 != 0){
-//			System.out.println("Memory Block has reached minimum size.");
-//		}
-//		else{
-//
-//		}
-	}
 
 	public memoryNode getMNode()
 	{
@@ -124,7 +115,13 @@ public class buddyAllocation
 		//Check cases to see if the nodeA is the first node in the list,
 		//if nodeB is the last node in the list, or if they don't fall into 
 		//either of the cases.
-		if(tempPrevious == null){
+
+		if((tempPrevious == null) && (tempNext == null)){
+			memoryNode newNode = new memoryNode(null, null, mergedArray);
+
+			this.mNode = newNode;
+		}
+		else if(tempPrevious == null){
 			memoryNode newNode = new memoryNode(null, tempNext, mergedArray);
 			tempNext.setPrevious(newNode);
 
@@ -140,5 +137,9 @@ public class buddyAllocation
 			tempNext.setPrevious(newNode);
 		}
 
+	}
+
+	public void allocateProcess()
+	{
 	}
 }
