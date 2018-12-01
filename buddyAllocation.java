@@ -173,6 +173,31 @@ public class buddyAllocation
 
 	}
 
+	//This method is to control the re-merging of
+	//processes once the TTL of a process expires.
+	//@param memoryNode deadProcess which contains the 
+	//process that has ended.
+	public void endProcess(memoryNode deadProcess)
+	{
+		memoryNode tempPrevious = deadProcess.getPrevious();
+		memoryNode tempNext = deadProcess.getNext();
+
+		if((deadProcess.getAllocationArray().length == tempNext.getAllocationArray().length)
+			       	&& (tempNext.isAllocated() == false)){
+			memoryNode toMerge = tempNext;
+
+		        merge(deadProcess,toMerge);
+		}
+		else if((deadProcess.getAllocationArray().length == tempPrevious.getAllocationArray().length)
+				&& (tempPrevious.isAllocated() == false)){
+			memoryNode toMerge = tempPrevious;
+
+
+		        merge(toMerge,deadProcess);
+		}
+
+	}
+
 	//This method is a helper method for the allocate
 	//function which finds the correct node to split
 	//while searching for a block of memory that will most
