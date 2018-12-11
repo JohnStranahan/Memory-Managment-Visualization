@@ -31,6 +31,9 @@ public class Main {
     }
 
     public static void endProcess(){
+        /*
+        remove process from view and the buddy system
+         */
 
     }
 
