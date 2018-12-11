@@ -13,12 +13,15 @@ public class Process
     //@param name: name of the process
     //@param size: size of the process
     //@param ttl: time to live of the process
-    public Process(String name, int size, int ttl)
+    public Process(String name, int size, int ttl, int pid)
     {
         this.name = name;
         this.size = size;
         this.ttl = ttl;
+        this.pid = pid;
     }
+
+    //These getters and setters probably aren't needed
 
     //Accessor for name.
     //@return name
