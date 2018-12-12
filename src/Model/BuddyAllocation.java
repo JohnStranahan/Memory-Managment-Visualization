@@ -187,23 +187,29 @@ public class BuddyAllocation
 	//process that has ended.
 	public void endProcess(MemoryNode deadProcess)
 	{
+		MemoryNode n = this.mNode;
+		int count = 0;
+		boolean found = false;
+
+		//searches memory stack to find index of node to be merged.
+		while((n != null) && (found == false)){
+			count++;
+			if(n == deadProcess){
+				found == true;
+			}
+		}
+
 		MemoryNode tempPrevious = deadProcess.getPrevious();
 		MemoryNode tempNext = deadProcess.getNext();
 
-		if((deadProcess.getAllocationArray().length == tempNext.getAllocationArray().length)
-			       	&& (tempNext.isAllocated() == false)){
-			MemoryNode toMerge = tempNext;
-
-		        merge(deadProcess,toMerge);
+		//If index is an even number, it will merge with the previous node.
+		if(((n % 2) == 0) && (tempPrevious.isAllocated() == false)){
+			merge(tempPrevious, deadProcess);
 		}
-		else if((deadProcess.getAllocationArray().length == tempPrevious.getAllocationArray().length)
-				&& (tempPrevious.isAllocated() == false)){
-			MemoryNode toMerge = tempPrevious;
-
-
-		        merge(toMerge,deadProcess);
+		//If index is an odd number, it will merge with the next node.
+		else if(((n % 2) != 0) && (tempNext.isAllocated() == false)){
+			merge(deadProcess, tempNext);
 		}
-
 	}
 
 	//This method is a helper method for the allocate
