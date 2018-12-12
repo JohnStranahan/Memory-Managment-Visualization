@@ -48,11 +48,7 @@ public class BuddyAllocation
 		MemoryNode tempNext = node.getNext();
 
 		if(tempPrevious == null){
-<<<<<<< HEAD
 			MemoryNode split1 = new MemoryNode(null,null,a, null);
-=======
-			MemoryNode split1 = new MemoryNode(null,null,a, process);
->>>>>>> 53dee5ffa989f66c61b138d00e4e4a06998e8ddc
 		        MemoryNode split2 = new MemoryNode(split1,tempNext,b, null);
 
 			split1.setNext(split2);
@@ -195,7 +191,7 @@ public class BuddyAllocation
 		while((n != null) && (found == false)){
 			count++;
 			if(n == deadProcess){
-				found == true;
+				found = true;
 			}
 		}
 
