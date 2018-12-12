@@ -181,9 +181,6 @@ public class MemoryView extends Application{
                 if(manager.addProcess(generateProcess())){
                     addTableRow();
                 }
-//                if(manager.removeProcess()) {
-//                    removeTableRow();
-//                }
             }
         });
 
@@ -245,9 +242,19 @@ public class MemoryView extends Application{
     }
 
     public void tableTicker() throws InterruptedException {
-        for (Process p : table.getItems()) {
-            p.setTimeLeft(p.getTimeLeft()-1);
+        Iterator<Process> iter = table.getItems().iterator();
+
+        while (iter.hasNext()) {
+            Process p = iter.next();
+
+            if (p.getTimeLeft() < 1) {
+                iter.remove();
+            }
+            else {
+                p.setTimeLeft(p.getTimeLeft()-1);
+            }
         }
+
         table.refresh();
     }
 
