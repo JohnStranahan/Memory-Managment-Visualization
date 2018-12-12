@@ -3,38 +3,45 @@ package Model;
 /*
 * non-buddy system abstract memory
 * buddy-system will be a sub class of this
-* buddy sytem will need split and merge methods
+* buddy system will need split and merge methods
 */
 public abstract class MemoryModel {
-    private int numProcesses;
-    private int freeMemory;
-    private MemoryNode head;
+   
+    private MemoryNode mNode;
 
     public MemoryModel(){
-        numProcesses = 0;
-        freeMemory = 256;
-        head = null;
+        
+        mNode = new MemoryNode();
     }
 
-    public boolean isEmpty(){
-        return numProcesses == 0;
+
+    abstract void endProcess(MemoryNode deadProcess);
+    
+    abstract void allocateProcess(Process p);
+
+    public MemoryNode findSmallest() {
+    	MemoryNode search = this.mNode;
+
+		if((search.getPrevious() == null) && (search.getNext() == null)){
+			return search;
+		}
+
+		MemoryNode smallest = search;
+		boolean found = false;
+
+		while((search.getNext() != null) && (found != true)){
+			MemoryNode x = search.getNext();
+
+			if((search.getAllocationArray().length > x.getAllocationArray().length) && (x.isAllocated() == false)){
+				smallest = x;
+				found = true;
+			}
+
+			search = x;
+		}
+
+		return smallest;
     }
-    public void empty(){
-        head = null;
-        numProcesses = 0;
-        freeMemory = 256;
-    }
-
-    abstract void addProcess(Process process);
-
-    abstract void removeProcess();
-
-    public boolean enoughSpace(Process process, int availableMemory){
-        return process.getSize() <= availableMemory;
-    }
-
-    public void notifyObserver(){
-
-    }
+    
 
 }
