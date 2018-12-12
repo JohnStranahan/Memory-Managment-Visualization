@@ -47,6 +47,15 @@ public class StackManager {
         return result;
     }
 
+    public void removeProcess(Process p){
+        if (!stored.contains(p)) {
+
+        }
+        else {
+            list.remove(p.deleteProcess());
+        }
+    }
+
     public void killProcess(Process p){
         setCurrentProcess(p);
 

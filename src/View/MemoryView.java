@@ -27,10 +27,9 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.layout.*;
 
-import java.util.ArrayList;
-import java.util.Random;
-import java.util.Stack;
+import java.util.*;
 
+import java.util.concurrent.TimeUnit;
 
 /*
     Created the Enum Memory Size because I was lazy
@@ -79,6 +78,8 @@ public class MemoryView extends Application{
         primaryStage.setTitle("Memory Manager z3000");
         primaryStage.setScene(borderScene);
         primaryStage.show();
+
+        tableTicker();
     }
 
     private HBox drawMenuBar(){
@@ -164,7 +165,8 @@ public class MemoryView extends Application{
     }
 
 
-    private GridPane drawControl(){
+
+    private GridPane drawControl() throws InterruptedException{
 
         //Creating UI Components
         Button simulate = new Button("Simulate");
@@ -179,8 +181,25 @@ public class MemoryView extends Application{
                 if(manager.addProcess(generateProcess())){
                     addTableRow();
                 }
+//                if(manager.removeProcess()) {
+//                    removeTableRow();
+//                }
             }
         });
+
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                try {
+                    tableTicker();
+                }
+                catch (InterruptedException e) {
+
+                }
+            }
+        }, 0, 1000);
+
 
         depart.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -198,12 +217,14 @@ public class MemoryView extends Application{
         grid.setHgap(5);
         grid.setAlignment(Pos.CENTER);
         return grid;
+
+
     }
 
     private TableView drawProcessTable(){
         //Create Table and its items
 
-        table.setEditable(false);
+        table.setEditable(true);
         TableColumn column1 = new TableColumn("Process Name");
         TableColumn column2 = new TableColumn("Size (" + MEMORY_SIZE.toString() + ")");
         TableColumn column3 = new TableColumn("Time Left");
@@ -223,6 +244,17 @@ public class MemoryView extends Application{
         table.getItems().add(process);
     }
 
+    public void tableTicker() throws InterruptedException {
+        for (Process p : table.getItems()) {
+            p.setTimeLeft(p.getTimeLeft()-1);
+        }
+        table.refresh();
+    }
+
+    public void removeTableRow(){
+        Process process = manager.getCurrentProcess();
+        table.getItems().remove(process);
+    }
     /*
         Starts the program
      */

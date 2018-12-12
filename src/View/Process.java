@@ -68,4 +68,10 @@ public class Process {
         pane.getChildren().addAll(rect, text, south, north, east, west);
         return pane;
     }
+
+    public StackPane deleteProcess() {
+        StackPane pane = new StackPane();
+        pane.getChildren().remove(rect);
+        return pane;
+    }
 }
