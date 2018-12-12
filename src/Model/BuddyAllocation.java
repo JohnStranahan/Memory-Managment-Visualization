@@ -3,7 +3,7 @@ package Model;
 //to the buddy system of memory allocation.
 //It uses the memoryNode object.
 
-public class BuddyAllocation
+public class BuddyAllocation extends MemoryModel
 {
 	//mNode is the head of the MemoryNode linked list.
 	private MemoryNode mNode;
@@ -206,28 +206,28 @@ public class BuddyAllocation
 	//appropriately hold the process.
 	//
 	//@return the smallest non-allocated memoryNode in the list.
-	public MemoryNode findSmallest()
-	{
-		MemoryNode search = this.mNode;
-
-		if((search.getPrevious() == null) && (search.getNext() == null)){
-			return search;
-		}
-
-		MemoryNode smallest = search;
-		boolean found = false;
-
-		while((search.getNext() != null) && (found != true)){
-			MemoryNode x = search.getNext();
-
-			if((search.getAllocationArray().length > x.getAllocationArray().length) && (x.isAllocated() == false)){
-				smallest = x;
-				found = true;
-			}
-
-			search = x;
-		}
-
-		return smallest;
-	}
+//	public MemoryNode findSmallest()
+//	{
+//		MemoryNode search = this.mNode;
+//
+//		if((search.getPrevious() == null) && (search.getNext() == null)){
+//			return search;
+//		}
+//
+//		MemoryNode smallest = search;
+//		boolean found = false;
+//
+//		while((search.getNext() != null) && (found != true)){
+//			MemoryNode x = search.getNext();
+//
+//			if((search.getAllocationArray().length > x.getAllocationArray().length) && (x.isAllocated() == false)){
+//				smallest = x;
+//				found = true;
+//			}
+//
+//			search = x;
+//		}
+//
+//		return smallest;
+//	}
 }
