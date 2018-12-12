@@ -24,8 +24,9 @@ public class BuddyAllocation
 	//This method splits an array in two.
 	//Will also store split arrays in new memory nodes.
 	//@param arr array to be split.
-	public void splitArray(MemoryNode node)
+	public void splitArray(MemoryNode node, Process process)
 	{
+
 		boolean[] arr = node.getAllocationArray();
 		int size = arr.length;
 
@@ -47,8 +48,8 @@ public class BuddyAllocation
 		MemoryNode tempNext = node.getNext();
 
 		if(tempPrevious == null){
-			MemoryNode split1 = new MemoryNode(null,null,a);
-		        MemoryNode split2 = new MemoryNode(split1,tempNext,b);
+			MemoryNode split1 = new MemoryNode(null,null,a, process);
+		        MemoryNode split2 = new MemoryNode(split1,tempNext,b, process);
 
 			split1.setNext(split2);
 		
@@ -62,17 +63,17 @@ public class BuddyAllocation
 			//Creates new memoryNode and reassigns references to
 			// the previous and next nodes to insert the new new
 			// nodes in between the previous and next nodes.
-			MemoryNode split1 = new MemoryNode(tempPrevious,null,a);
+			MemoryNode split1 = new MemoryNode(tempPrevious,null,a, process);
 			tempPrevious.setNext(split1);
-			MemoryNode split2 = new MemoryNode(split1,tempNext,b);
+			MemoryNode split2 = new MemoryNode(split1,tempNext,b, process);
 			split1.setNext(split2);
 			tempNext.setPrevious(split2);
 		}
 		//If node is tail of the list, will set prev of first split to 
 		//temp prev.
 		else if((tempPrevious != null) && tempNext == null){
-			MemoryNode split1 = new MemoryNode(tempPrevious,null,a);
-			MemoryNode split2 = new MemoryNode(split1,null,b);
+			MemoryNode split1 = new MemoryNode(tempPrevious,null,a, process);
+			MemoryNode split2 = new MemoryNode(split1,null,b, process);
 			split1.setNext(split2);
 			tempPrevious.setNext(split1);
 		}
@@ -118,22 +119,22 @@ public class BuddyAllocation
 		//either of the cases.
 
 		if((tempPrevious == null) && (tempNext == null)){
-			MemoryNode newNode = new MemoryNode(null, null, mergedArray);
+			MemoryNode newNode = new MemoryNode(null, null, mergedArray, null);
 
 			this.mNode = newNode;
 		}
 		else if(tempPrevious == null){
-			MemoryNode newNode = new MemoryNode(null, tempNext, mergedArray);
+			MemoryNode newNode = new MemoryNode(null, tempNext, mergedArray, null);
 			tempNext.setPrevious(newNode);
 
 			this.mNode = newNode;
 		}
 		else if(tempNext == null){
-			MemoryNode newNode = new MemoryNode(tempPrevious, null, mergedArray);
+			MemoryNode newNode = new MemoryNode(tempPrevious, null, mergedArray, null);
 			tempPrevious.setNext(newNode);
 		}
 		else if((tempPrevious != null) && (tempNext != null)){
-			MemoryNode newNode = new MemoryNode(tempPrevious, tempNext, mergedArray);
+			MemoryNode newNode = new MemoryNode(tempPrevious, tempNext, mergedArray, null);
 			tempPrevious.setNext(newNode);
 			tempNext.setPrevious(newNode);
 		}
@@ -169,7 +170,7 @@ public class BuddyAllocation
 				        n = n.getNext();
 			        }
 			}
-			splitArray(findSmallest());
+			splitArray(findSmallest(), p );
 		}
 
 	}

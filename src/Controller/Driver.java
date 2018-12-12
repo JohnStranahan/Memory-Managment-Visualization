@@ -1,14 +1,20 @@
 package Controller;
-import Model;
-import View;
+import Model.Process;
+import Model.BuddyAllocation;
+import View.*;
+import java.util.*;
+import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Random;
 
-public class Main {
-    Queue waitingProcess = new Queue();
-    buddyAllocation memory = new buddyAllocation();
+public class Driver {
+
+    static Queue waitingProcess = new LinkedList();
+    static BuddyAllocation memory = new BuddyAllocation();
+
     public static void main(String[] args) {
-//        buddyAllocation memory = new buddyAllocation();
+        Process process = new Process("dog",10,20,1);
+
     }
 
     public Queue getWaitingProcess() {

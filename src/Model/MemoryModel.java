@@ -5,7 +5,6 @@ package Model;
 * buddy-system will be a sub class of this
 * buddy sytem will need split and merge methods
 */
-
 public abstract class MemoryModel {
     private int numProcesses;
     private int freeMemory;
