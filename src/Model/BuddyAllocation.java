@@ -49,7 +49,7 @@ public class BuddyAllocation
 
 		if(tempPrevious == null){
 			MemoryNode split1 = new MemoryNode(null,null,a, process);
-		        MemoryNode split2 = new MemoryNode(split1,tempNext,b, process);
+		        MemoryNode split2 = new MemoryNode(split1,tempNext,b, null);
 
 			split1.setNext(split2);
 		

@@ -32,6 +32,7 @@ public abstract class MemoryModel {
     public boolean enoughSpace(Process process, int availableMemory){
         return process.getSize() <= availableMemory;
     }
+
     public void notifyObserver(){
 
     }
