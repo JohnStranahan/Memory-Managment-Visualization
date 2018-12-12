@@ -2,7 +2,7 @@ package Model;
 
 public interface NodeInterface {
     void clearAllocations();
-    void setPrevious();
+    void setPrevious(MemoryNode previous);
     Object getPrevious();
     void setNext();
     void allocate();

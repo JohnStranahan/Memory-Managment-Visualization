@@ -5,17 +5,17 @@ package Model;
 //stack. Each node has a reference to the previous
 //and next nodes in the stack. 
 
-public class memoryNode
+public class MemoryNode
 {
-	private memoryNode next;
-	private memoryNode previous;
+	private MemoryNode next;
+	private MemoryNode previous;
 	private boolean[] allocatedBits;
 	private Process storedProcess;
 	//Constructor for class memoryNode
 	//@param previous: sets previous node
 	//@param next: sets next node.
 	//@param size: size for allocatedBits array
-	public memoryNode(memoryNode previous, memoryNode next, boolean[] allocatedBits, Process storedProcess)
+	public MemoryNode(MemoryNode previous, MemoryNode next, boolean[] allocatedBits, Process storedProcess)
 	{
 		this.previous = previous;
 		this.next = next;
@@ -25,7 +25,7 @@ public class memoryNode
 
 	//Constructor for setting up node with
 	//no node references.
-	public memoryNode()
+	public MemoryNode()
 	{
 		previous = null;
 		next = null;
@@ -35,14 +35,14 @@ public class memoryNode
 
 	//Mutator for previous node.
 	//@param previous: sets previous node.
-	public void setPrevious(memoryNode previous)
+	public void setPrevious(MemoryNode previous)
 	{
 		this.previous = previous;
 	}
 
 	//Accessor for previous node.
 	//@return previous: gets the previous node.
-	public memoryNode getPrevious()
+	public MemoryNode getPrevious()
 	{
 		return previous;
 	}
@@ -50,21 +50,21 @@ public class memoryNode
 
 	//Mutator for the next  node.
 	//@param next: sets next node.
-	public void setNext(memoryNode next)
+	public void setNext(MemoryNode next)
 	{
 		this.next = next;
 	}
 
 	//Accessor for the next  node.
 	//@return next: gets the next node.
-	public memoryNode getNext()
+	public MemoryNode getNext()
 	{
 		return next;
 	}
 
 
 	//Sets values in array to true to simulate
-	//memory allocation.
+	//Memory allocation.
 	//@param biteSize: the size of the process being allocated.
 	public void allocate(int bitSize)
 	{

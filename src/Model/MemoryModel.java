@@ -25,12 +25,11 @@ public abstract class MemoryModel {
         numProcesses = 0;
         freeMemory = 256;
     }
-    abstract void addProcess(Process process){
 
-    }
-    abstract void removeProcess(){
+    abstract void addProcess(Process process);
 
-    }
+    abstract void removeProcess();
+
     public boolean enoughSpace(Process process, int availableMemory){
         return process.getSize() <= availableMemory;
     }
