@@ -48,8 +48,12 @@ public class BuddyAllocation extends MemoryModel
 		MemoryNode tempNext = node.getNext();
 
 		if(tempPrevious == null){
+<<<<<<< HEAD
+			MemoryNode split1 = new MemoryNode(null,null,a, null);
+=======
 			MemoryNode split1 = new MemoryNode(null,null,a, process);
-		        MemoryNode split2 = new MemoryNode(split1,tempNext,b, process);
+>>>>>>> 53dee5ffa989f66c61b138d00e4e4a06998e8ddc
+		        MemoryNode split2 = new MemoryNode(split1,tempNext,b, null);
 
 			split1.setNext(split2);
 		
@@ -63,17 +67,17 @@ public class BuddyAllocation extends MemoryModel
 			//Creates new memoryNode and reassigns references to
 			// the previous and next nodes to insert the new new
 			// nodes in between the previous and next nodes.
-			MemoryNode split1 = new MemoryNode(tempPrevious,null,a, process);
+			MemoryNode split1 = new MemoryNode(tempPrevious,null,a, null);
 			tempPrevious.setNext(split1);
-			MemoryNode split2 = new MemoryNode(split1,tempNext,b, process);
+			MemoryNode split2 = new MemoryNode(split1,tempNext,b, null);
 			split1.setNext(split2);
 			tempNext.setPrevious(split2);
 		}
 		//If node is tail of the list, will set prev of first split to 
 		//temp prev.
 		else if((tempPrevious != null) && tempNext == null){
-			MemoryNode split1 = new MemoryNode(tempPrevious,null,a, process);
-			MemoryNode split2 = new MemoryNode(split1,null,b, process);
+			MemoryNode split1 = new MemoryNode(tempPrevious,null,a, null);
+			MemoryNode split2 = new MemoryNode(split1,null,b, null);
 			split1.setNext(split2);
 			tempPrevious.setNext(split1);
 		}
@@ -157,7 +161,7 @@ public class BuddyAllocation extends MemoryModel
 		boolean found = false;
 
 		while(found == false){
-			while(n != null){
+			while((n != null) && (found == false)){
 				
 			        int blockSize = mNode.getAllocationArray().length;
 			        difference = blockSize - pSize;
@@ -170,7 +174,9 @@ public class BuddyAllocation extends MemoryModel
 				        n = n.getNext();
 			        }
 			}
-			splitArray(findSmallest(), p );
+			if(found == false){
+			        splitArray(findSmallest(), p);
+			}
 		}
 
 	}
@@ -181,23 +187,29 @@ public class BuddyAllocation extends MemoryModel
 	//process that has ended.
 	public void endProcess(MemoryNode deadProcess)
 	{
+		MemoryNode n = this.mNode;
+		int count = 0;
+		boolean found = false;
+
+		//searches memory stack to find index of node to be merged.
+		while((n != null) && (found == false)){
+			count++;
+			if(n == deadProcess){
+				found == true;
+			}
+		}
+
 		MemoryNode tempPrevious = deadProcess.getPrevious();
 		MemoryNode tempNext = deadProcess.getNext();
 
-		if((deadProcess.getAllocationArray().length == tempNext.getAllocationArray().length)
-			       	&& (tempNext.isAllocated() == false)){
-			MemoryNode toMerge = tempNext;
-
-		        merge(deadProcess,toMerge);
+		//If index is an even number, it will merge with the previous node.
+		if(((n % 2) == 0) && (tempPrevious.isAllocated() == false)){
+			merge(tempPrevious, deadProcess);
 		}
-		else if((deadProcess.getAllocationArray().length == tempPrevious.getAllocationArray().length)
-				&& (tempPrevious.isAllocated() == false)){
-			MemoryNode toMerge = tempPrevious;
-
-
-		        merge(toMerge,deadProcess);
+		//If index is an odd number, it will merge with the next node.
+		else if(((n % 2) != 0) && (tempNext.isAllocated() == false)){
+			merge(deadProcess, tempNext);
 		}
-
 	}
 
 	//This method is a helper method for the allocate

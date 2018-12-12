@@ -54,6 +54,14 @@ public class MemoryNode implements NodeInterface
         return next;
     }
     /**
+     * Accessor for the storedProcess
+     * @return storedProcess
+     */
+    public Process getStoredProcess()
+    {
+        return storedProcess;
+    }
+    /**
      * Mutator for previous node.
      * @param previous
      */
@@ -68,6 +76,14 @@ public class MemoryNode implements NodeInterface
     public void setNext(MemoryNode next)
     {
         this.next = next;
+    }
+
+    /**
+     * Mutator for the stored process
+     * @param process
+     */
+    public void setStoredProcess(Process process){
+        this.storedProcess = process;
     }
     /**
      * Sets values in array to true to simulate memory allocation
