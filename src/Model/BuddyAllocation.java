@@ -48,8 +48,8 @@ public class BuddyAllocation
 		MemoryNode tempNext = node.getNext();
 
 		if(tempPrevious == null){
-			MemoryNode split1 = new MemoryNode(null,null,a, process);
-		        MemoryNode split2 = new MemoryNode(split1,tempNext,b, process);
+			MemoryNode split1 = new MemoryNode(null,null,a, null);
+		        MemoryNode split2 = new MemoryNode(split1,tempNext,b, null);
 
 			split1.setNext(split2);
 		
@@ -63,17 +63,17 @@ public class BuddyAllocation
 			//Creates new memoryNode and reassigns references to
 			// the previous and next nodes to insert the new new
 			// nodes in between the previous and next nodes.
-			MemoryNode split1 = new MemoryNode(tempPrevious,null,a, process);
+			MemoryNode split1 = new MemoryNode(tempPrevious,null,a, null);
 			tempPrevious.setNext(split1);
-			MemoryNode split2 = new MemoryNode(split1,tempNext,b, process);
+			MemoryNode split2 = new MemoryNode(split1,tempNext,b, null);
 			split1.setNext(split2);
 			tempNext.setPrevious(split2);
 		}
 		//If node is tail of the list, will set prev of first split to 
 		//temp prev.
 		else if((tempPrevious != null) && tempNext == null){
-			MemoryNode split1 = new MemoryNode(tempPrevious,null,a, process);
-			MemoryNode split2 = new MemoryNode(split1,null,b, process);
+			MemoryNode split1 = new MemoryNode(tempPrevious,null,a, null);
+			MemoryNode split2 = new MemoryNode(split1,null,b, null);
 			split1.setNext(split2);
 			tempPrevious.setNext(split1);
 		}
@@ -157,7 +157,7 @@ public class BuddyAllocation
 		boolean found = false;
 
 		while(found == false){
-			while(n != null){
+			while((n != null) && (found == false)){
 				
 			        int blockSize = mNode.getAllocationArray().length;
 			        difference = blockSize - pSize;
@@ -170,7 +170,9 @@ public class BuddyAllocation
 				        n = n.getNext();
 			        }
 			}
-			splitArray(findSmallest(), p );
+			if(found == false){
+			        splitArray(findSmallest(), p);
+			}
 		}
 
 	}
