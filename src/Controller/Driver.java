@@ -10,16 +10,14 @@ import java.util.Queue;
 import java.util.Random;
 
 public class Driver {
-
-    static Queue waitingProcess = new LinkedList();
-    static BuddyAllocation memory = new BuddyAllocation();
-
     public static void main(String[] args) {
 
+    	MemoryController controller = new MemoryController();
+    	controller.interact();
         //Launches the GUI
-        Application.launch(MemoryView.class, null);
-    	boolean stop = false;
-    	do {
+//        Application.launch(MemoryView.class, null);
+//    	boolean stop = false;
+//    	do {
 //    		foreach(Process p in memory model){
 //    			if(m.ttl == 0) {
 //    				memory.endProcess(p);
@@ -56,7 +54,7 @@ public class Driver {
 //    		foreach(process in memory model){
 //    			p.setTTL(p.getTTL() from gui);
 //    		}
-    	}while(!stop);
+//    	}while(!stop);
 ////        Process process = new Process("dog",10,20,1);
         
 
