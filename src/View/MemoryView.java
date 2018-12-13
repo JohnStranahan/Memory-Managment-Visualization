@@ -1,3 +1,5 @@
+package View;
+
 import javafx.application.Application;
 import javafx.beans.NamedArg;
 import javafx.beans.property.DoubleProperty;
@@ -43,7 +45,7 @@ public class MemoryView extends Application{
     private static final int TOTAL_MEMORY_ALLOCATED  = 256;
     private static MemorySize MEMORY_SIZE = MemorySize.KB;
     private StackPane stack = new StackPane();
-    private TableView<Process> table = new TableView<>();
+    private TableView<ProcessGui> table = new TableView<>();
     private StackManager manager = new StackManager(stack);
     /*
             Overridden method from Application class that sets up a stage(frame of the window) and a scene(where
@@ -146,9 +148,9 @@ public class MemoryView extends Application{
         return vbox;
     }
 
-    private Process generateProcess() {
+    private ProcessGui generateProcess() {
         Random rand = new Random();
-        Process p;
+        ProcessGui p;
         //Size is between 1 and 256(max possible size our memory can hold)
         int size = rand.nextInt(247) + 10;
         //Amount of time the process is alive is completely random as it should be
@@ -237,15 +239,15 @@ public class MemoryView extends Application{
     }
 
     public void addTableRow(){
-        Process process = manager.getCurrentProcess();
+        ProcessGui process = manager.getCurrentProcess();
         table.getItems().add(process);
     }
 
     public void tableTicker() throws InterruptedException {
-        Iterator<Process> iter = table.getItems().iterator();
+        Iterator<ProcessGui> iter = table.getItems().iterator();
 
         while (iter.hasNext()) {
-            Process p = iter.next();
+            ProcessGui p = iter.next();
 
             if (p.getTimeLeft() < 1) {
                 iter.remove();
@@ -259,7 +261,7 @@ public class MemoryView extends Application{
     }
 
     public void removeTableRow(){
-        Process process = manager.getCurrentProcess();
+        ProcessGui process = manager.getCurrentProcess();
         table.getItems().remove(process);
     }
     /*

@@ -1,3 +1,5 @@
+package View;
+
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.layout.StackPane;
@@ -6,9 +8,9 @@ import java.util.ArrayList;
 public class StackManager {
     private int nodeIndex, stackIndex;
     private ObservableList<Node> list;
-    private Process curr;
+    private ProcessGui curr;
     private int totalMemAllocated;
-    private ArrayList<Process> stored;
+    private ArrayList<ProcessGui> stored;
 
     public StackManager(StackPane stack){
         nodeIndex = 0;
@@ -18,15 +20,15 @@ public class StackManager {
         stored = new ArrayList<>();
     }
 
-    public void setCurrentProcess(Process p){
+    public void setCurrentProcess(ProcessGui p){
         curr = p;
     }
 
-    public Process getCurrentProcess(){
+    public ProcessGui getCurrentProcess(){
         return curr;
     }
 
-    public boolean addProcess(Process p){
+    public boolean addProcess(ProcessGui p){
         boolean result = false;
         if(totalMemAllocated + p.getSize() <= 256){
             setCurrentProcess(p);
@@ -47,7 +49,7 @@ public class StackManager {
         return result;
     }
 
-    public void removeProcess(Process p){
+    public void removeProcess(ProcessGui p){
         if (!stored.contains(p)) {
 
         }
@@ -56,7 +58,7 @@ public class StackManager {
         }
     }
 
-    public void killProcess(Process p){
+    public void killProcess(ProcessGui p){
         setCurrentProcess(p);
 
     }

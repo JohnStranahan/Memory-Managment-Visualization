@@ -1,3 +1,5 @@
+package View;
+
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
@@ -7,14 +9,14 @@ import javafx.scene.text.*;
 
 import java.awt.*;
 
-public class Process {
+public class ProcessGui {
 
     private String name;
     private int size;
     private int timeLeft;
     protected Rectangle rect;
 
-    public Process(String name, int size, int timeLeft){
+    public ProcessGui(String name, int size, int timeLeft){
         this.name = name;
         this.size = size;
         this.timeLeft = timeLeft;

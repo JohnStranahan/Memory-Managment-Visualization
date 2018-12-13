@@ -1,7 +1,9 @@
+package View;
+
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-public class LargeProcess extends Process {
+public class LargeProcess extends ProcessGui {
 
     public LargeProcess(String name, int size, int timeLeft){
         super(name, size, timeLeft);

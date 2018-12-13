@@ -1,3 +1,5 @@
+package View;
+
 public enum MemorySize {
     KB, MB, GB, TB, PB;
 

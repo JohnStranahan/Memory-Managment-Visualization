@@ -1,7 +1,9 @@
+package View;
+
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-public class SmallProcess extends Process{
+public class SmallProcess extends ProcessGui{
 
     public SmallProcess(String name, int size, int timeLeft) {
         super(name, size, timeLeft);
