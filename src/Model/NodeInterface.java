@@ -2,10 +2,10 @@ package Model;
 
 public interface NodeInterface {
     void clearAllocations();
-    void setPrevious();
+    void setPrevious(MemoryNode previous);
     Object getPrevious();
-    void setNext();
-    void allocate();
+    void setNext(MemoryNode next);
+    void allocate(int bitSize);
     Object getNext();
     boolean[] getAllocationArray();
 }
