@@ -81,7 +81,6 @@ public class MemoryView extends Application{
         primaryStage.setScene(borderScene);
         primaryStage.show();
 
-        tableTicker();
     }
 
     private HBox drawMenuBar(){
@@ -192,6 +191,7 @@ public class MemoryView extends Application{
             public void run() {
                 try {
                     tableTicker();
+                    refreshVBox();
                 }
                 catch (InterruptedException e) {
 
@@ -256,8 +256,11 @@ public class MemoryView extends Application{
                 p.setTimeLeft(p.getTimeLeft()-1);
             }
         }
-
         table.refresh();
+    }
+
+    public void refreshVBox() {
+
     }
 
     public void removeTableRow(){
