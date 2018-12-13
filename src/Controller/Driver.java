@@ -2,6 +2,8 @@ package Controller;
 import Model.Process;
 import Model.BuddyAllocation;
 import View.*;
+import javafx.application.Application;
+
 import java.util.*;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -13,6 +15,9 @@ public class Driver {
     static BuddyAllocation memory = new BuddyAllocation();
 
     public static void main(String[] args) {
+
+        //Launches the GUI
+        Application.launch(MemoryView.class, null);
     	boolean stop = false;
     	do {
 //    		foreach(Process p in memory model){

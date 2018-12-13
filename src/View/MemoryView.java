@@ -267,10 +267,4 @@ public class MemoryView extends Application{
         ProcessGui process = manager.getCurrentProcess();
         table.getItems().remove(process);
     }
-    /*
-        Starts the program
-     */
-    public static void main(String[] args){
-        launch(args);
-    }
 }
