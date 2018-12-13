@@ -199,12 +199,12 @@ public class BuddyAllocation extends MemoryModel
 		MemoryNode tempNext = deadProcess.getNext();
 
 		//If index is an even number, it will merge with the previous node.
-		if(((n % 2) == 0) && (tempPrevious.isAllocated() == false) &&
+		if(((count % 2) == 0) && (tempPrevious.isAllocated() == false) &&
 				(deadProcess.getAllocationArray().length == tempPrevious.getAllocationArray().length)){
 			merge(tempPrevious, deadProcess);
 		}
 		//If index is an odd number, it will merge with the next node.
-		else if(((n % 2) != 0) && (tempNext.isAllocated() == false) &&
+		else if(((count % 2) != 0) && (tempNext.isAllocated() == false) &&
 				(deadProcess.getAllocationArray().length == tempNext.getAllocationArray().length)){
 			merge(deadProcess, tempNext);
 		}
