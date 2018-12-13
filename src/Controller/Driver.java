@@ -1,4 +1,5 @@
 package Controller;
+import Model.MemoryNode;
 import Model.Process;
 import Model.BuddyAllocation;
 import View.*;
@@ -14,6 +15,13 @@ public class Driver {
 
     	MemoryController controller = new MemoryController();
     	controller.interact();
+
+    	Process newProcess = new Process("process", 63,1,10);
+
+    	BuddyAllocation BA = new BuddyAllocation();
+		BA.allocateProcess(newProcess);
+		System.out.println(BA.toString());
+
         //Launches the GUI
 //        Application.launch(MemoryView.class, null);
 //    	boolean stop = false;
