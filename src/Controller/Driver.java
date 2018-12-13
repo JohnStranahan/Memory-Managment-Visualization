@@ -7,14 +7,13 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Random;
 
+
+
 public class Driver {
-
-    static Queue waitingProcess = new LinkedList();
-    static BuddyAllocation memory = new BuddyAllocation();
-
     public static void main(String[] args) {
-    	boolean stop = false;
-    	do {
+		MemoryController controller = new MemoryController();
+		controller.interact();
+
 //    		foreach(Process p in memory model){
 //    			if(m.ttl == 0) {
 //    				memory.endProcess(p);
@@ -32,18 +31,18 @@ public class Driver {
 //    			}
 //    			else {
 //    				Process p = new process(params from random)
-  				/*
-  				 * if(proces is to big) {
-  				 * add to queue
-  				 *  notify view
-  				 * notify model
-  				 * }
-  				 * else{
-  				 * memory.allocateProcess(p);
-  				 * notify view
-  				 * notify model
-  				 * }
-    	*/
+		/*
+		 * if(proces is to big) {
+		 * add to queue
+		 *  notify view
+		 * notify model
+		 * }
+		 * else{
+		 * memory.allocateProcess(p);
+		 * notify view
+		 * notify model
+		 * }
+		 */
 
 //    			}
 //    		}
@@ -51,16 +50,15 @@ public class Driver {
 //    		foreach(process in memory model){
 //    			p.setTTL(p.getTTL() from gui);
 //    		}
-    	}while(!stop);
+//    	}while(!stop);
 ////        Process process = new Process("dog",10,20,1);
-        
 
-    }
+//
+//    }
 
 //    public Queue getWaitingProcess() {
 //        return waitingProcess;
 //    }
-
 
 
 //    public void setWaitingProcess(Queue waitingProcess) {
@@ -82,6 +80,7 @@ public class Driver {
 //         */
 //
 //    }
+	}
 
 
 }
