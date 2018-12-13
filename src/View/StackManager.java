@@ -48,12 +48,8 @@ public class StackManager {
     }
 
     public void removeProcess(Process p){
-        if (!stored.contains(p)) {
-
-        }
-        else {
-            list.remove(p.deleteProcess());
-        }
+        list.remove(p.deleteProcess());
+        stored.remove(p);
     }
 
     public void killProcess(Process p){
