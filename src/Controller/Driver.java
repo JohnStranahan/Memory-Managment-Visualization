@@ -3,6 +3,7 @@ import Model.MemoryNode;
 import Model.Process;
 import Model.BuddyAllocation;
 import View.*;
+import com.sun.xml.internal.bind.v2.TODO;
 import javafx.application.Application;
 
 import java.util.*;
@@ -12,29 +13,43 @@ import java.util.Random;
 
 public class Driver {
     public static void main(String[] args) {
-
+        System.out.println("hello");
     	MemoryController controller = new MemoryController();
     	controller.interact();
 
-    	Process newProcess = new Process("process", 63,1,10);
+    	Process newProcess = new Process("process", 63,5,10);
 
     	BuddyAllocation BA = new BuddyAllocation();
 		BA.allocateProcess(newProcess);
-		System.out.println(BA.toString());
+		System.out.println(BA.getMNode().getStoredProcess().getName());
 
         //Launches the GUI
 //        Application.launch(MemoryView.class, null);
-//    	boolean stop = false;
-//    	do {
-//    		foreach(Process p in memory model){
-//    			if(m.ttl == 0) {
-//    				memory.endProcess(p);
-////    				notify view
-////    				notify model
-//    			}
-//    		}
+    	boolean stop = false;
+    	do {
+            MemoryNode n = BA.getMNode();
+            while((n != null)){
+
+                if(n.getStoredProcess().getTTL() == 0){
+                    BA.endProcess(n);
+                }
+                else{
+                    n = n.getNext();
+                }
+
+            }
+            //TODO random process generation
+            Random ran = new Random();
+            int rSize = ran.nextInt(256);
+            int rTTL = ran.nextInt(10) +5;
+            int rPid = ran.nextInt();
+            Process randomProcess = new Process(ran.toString(), rSize,rTTL,rPid);
+
+            BA.allocateProcess(randomProcess);
+//            System.out.println(BA.getMNode().getStoredProcess().getName());
+
 //    		if(user add process) {
-//    	
+//
 //    			if(waitingProcess.isEmpty()) {
 //    				Process p = waitingProcess.dequeue();
 //    				memory.allocateProcess(p);
@@ -58,12 +73,19 @@ public class Driver {
 
 //    			}
 //    		}
-//    		
-//    		foreach(process in memory model){
-//    			p.setTTL(p.getTTL() from gui);
-//    		}
-//    	}while(!stop);
+//
+            /*
+            * This decrements all ttls for stored processes
+            */
+   		    MemoryNode t = BA.getMNode();
+            while((t != null)){
+                int ttl =t.getStoredProcess().getTTL();
+                t.getStoredProcess().setTTL(--ttl);
+            }
+
+    	}while(!stop);
 ////        Process process = new Process("dog",10,20,1);
+        System.out.print("end program");
         
 
     }
