@@ -16,7 +16,7 @@ public class Driver {
         System.out.println("hello");
     	MemoryController controller = new MemoryController();
     	controller.interact();
-
+    	Queue<Process> waitingProcess = new LinkedList<>();
     	Process newProcess = new Process("process", 63,5,10);
 
     	BuddyAllocation BA = new BuddyAllocation();
@@ -38,14 +38,29 @@ public class Driver {
                 }
 
             }
-            //TODO random process generation
-            Random ran = new Random();
-            int rSize = ran.nextInt(256);
-            int rTTL = ran.nextInt(10) +5;
-            int rPid = ran.nextInt();
-            Process randomProcess = new Process(ran.toString(), rSize,rTTL,rPid);
+            // random process generation and allocation
 
-            BA.allocateProcess(randomProcess);
+
+            if(waitingProcess.isEmpty()) {
+    				Process p = waitingProcess.remove();
+    				BA.allocateProcess(p);
+//    				notify view
+//    				notify model
+    			}
+            else{
+                Random ran = new Random();
+                int rSize = ran.nextInt(256);
+                int rTTL = ran.nextInt(10) +5;
+                int rPid = ran.nextInt();
+                Process randomProcess = new Process(ran.toString(), rSize,rTTL,rPid);
+                if(randomProcess.getSize() > BA.getMNode().getAllocationArray().length){
+                    waitingProcess.add(randomProcess);
+                }
+                else{
+                    BA.allocateProcess(randomProcess);
+                }
+            }
+
 //            System.out.println(BA.getMNode().getStoredProcess().getName());
 
 //    		if(user add process) {
