@@ -3,7 +3,7 @@ package Model;
 //to the buddy system of memory allocation.
 //It uses the memoryNode object.
 
-public class BuddyAllocation extends MemoryModel
+public class BuddyAllocation
 {
 	//mNode is the head of the MemoryNode linked list.
 	private MemoryNode mNode;
@@ -42,45 +42,51 @@ public class BuddyAllocation extends MemoryModel
 			}
 		}
 
-		//Temporary Previous and Next nodes so 
-		//I dont need to keep calling getNext and getPrev
 		MemoryNode tempPrevious = node.getPrevious();
 		MemoryNode tempNext = node.getNext();
 
-		if(tempPrevious == null){
-			MemoryNode split1 = new MemoryNode(null,null,a, null);
-		        MemoryNode split2 = new MemoryNode(split1,tempNext,b, null);
+		if(node.getPrevious() == null){
 
+			if(tempNext != null){
+				tempNext.setPrevious(null);
+				node.setNext(null);
+			}
+			MemoryNode split1 = new MemoryNode(null,null,a,null);
+			MemoryNode split2 = new MemoryNode(split1,tempNext, b, null);
+			if(tempNext != null){
+				tempNext.setPrevious(split2);
+			}
 			split1.setNext(split2);
-		
-		        //Sets the field mNode, which will represent the head
-			//of the memoryNodes linked list. 
-		        this.mNode = split1;
+
+			//Sets the field mNode, which will represent the head
+			//of the memoryNodes linked list.
+			this.mNode = split1;
 		}
 		//If node is neither head nor tail of the list,
 		//will set tempNext and tempPrev as parameters.
-		else if((tempPrevious != null) && (tempNext != null)){
+		else if((node.getPrevious() != null) && (node.getNext() != null)){
+
 			//Creates new memoryNode and reassigns references to
 			// the previous and next nodes to insert the new new
 			// nodes in between the previous and next nodes.
-			MemoryNode split1 = new MemoryNode(tempPrevious,null,a, null);
-			tempPrevious.setNext(split1);
-			MemoryNode split2 = new MemoryNode(split1,tempNext,b, null);
+			MemoryNode split1 = new MemoryNode(node.getPrevious(),null,a, null);
+			node.getPrevious().setNext(split1);
+			MemoryNode split2 = new MemoryNode(split1,node.getNext(),b, null);
 			split1.setNext(split2);
-			tempNext.setPrevious(split2);
+			node.getNext().setPrevious(split2);
 		}
-		//If node is tail of the list, will set prev of first split to 
+		//If node is tail of the list, will set prev of first split to
 		//temp prev.
-		else if((tempPrevious != null) && tempNext == null){
-			MemoryNode split1 = new MemoryNode(tempPrevious,null,a, null);
-			MemoryNode split2 = new MemoryNode(split1,null,b, null);
+		else if((node.getPrevious() != null) && (node.getNext() == null)){
+			MemoryNode split1 = new MemoryNode(node.getPrevious(),null,a,null);
+			node.getPrevious().setNext(split1);
+			MemoryNode split2 = new MemoryNode(split1,null,b,null);
 			split1.setNext(split2);
-			tempPrevious.setNext(split1);
 		}
 	}
 
 	//This method will merge two memoryNodes
-	//When using this method, nodaA.getNext should be 
+	//When using this method, nodaA.getNext should be
 	//equal to nodeB, nodeB.getPrevious should equal Node A.
 	//@param half of node to be merged.
 	//@param second half of node to be merged
@@ -93,18 +99,18 @@ public class BuddyAllocation extends MemoryModel
 		boolean[] mergedArray = new boolean[(a.length + b.length)];
 
 		int j = 1;
-                for(int i = 0;j <= mergedArray.length; i++){
-                        if(i == (mergedArray.length/2)){
-                                i = 0;
-                        }
-                        if(j > (mergedArray.length/2)){
-                                mergedArray[j-1] = b[i];
-                        }
-                        else{
-                                mergedArray[j-1] = a[i];
-                        }
-                        j++;
-                }
+		for(int i = 0;j <= mergedArray.length; i++){
+			if(i == (mergedArray.length/2)){
+				i = 0;
+			}
+			if(j > (mergedArray.length/2)){
+				mergedArray[j-1] = b[i];
+			}
+			else{
+				mergedArray[j-1] = a[i];
+			}
+			j++;
+		}
 
 		//Now that we have merged the array, we now need to merge the nodes.
 
@@ -115,7 +121,7 @@ public class BuddyAllocation extends MemoryModel
 		MemoryNode tempNext = nodeB.getNext();
 
 		//Check cases to see if the nodeA is the first node in the list,
-		//if nodeB is the last node in the list, or if they don't fall into 
+		//if nodeB is the last node in the list, or if they don't fall into
 		//either of the cases.
 
 		if((tempPrevious == null) && (tempNext == null)){
@@ -144,42 +150,42 @@ public class BuddyAllocation extends MemoryModel
 	//This method allocates a process to a memoryNode
 	//contained in the stack.
 	//@param Process p to be allocated to stack.
-	public void allocateProcess(Process p)
-	{
-		int pSize = p.getSize();
-		
-		//To allocate a process, we need to traverse the linked list of 
-		//memoryNodes and compare the size of each node to the process 
-		//which is attempting to be allocated
-		MemoryNode n = this.mNode;
-		MemoryNode smallest = n;
-		int difference = 0;
-		boolean found = false;
+	//public void allocateProcess(Process p)
+	//{
+	//	int pSize = p.getSize();
 
-		while(found == false){
-			while((n != null) && (found == false)){
-				
-			        int blockSize = mNode.getAllocationArray().length;
-			        difference = blockSize - pSize;
+	//To allocate a process, we need to traverse the linked list of
+	//memoryNodes and compare the size of each node to the process
+	//which is attempting to be allocated
+	//	MemoryNode n = this.mNode;
+	//	MemoryNode smallest = n;
+	//	int difference = 0;
+	//	boolean found = false;
 
-			        if((difference < pSize) && (difference > 0) && (n.isAllocated() == false)){
-				        n.allocate(pSize);
-				        found = true;
-			        }
-			        else{
-				        n = n.getNext();
-			        }
-			}
-			if(found == false){
-			        splitArray(findSmallest(), p);
-			}
-		}
+	//	while(found == false){
+	//		while((n != null) && (found == false)){
 
-	}
+	//		        int blockSize = mNode.getAllocationArray().length;
+	//		        difference = blockSize - pSize;
+
+	//		        if((difference < pSize) && (difference > 0) && (n.isAllocated() == false)){
+	//			        n.allocate(pSize);
+	//			        found = true;
+	//		        }
+	//		        else{
+	//			        n = n.getNext();
+	//		        }
+	//		}
+	//		if(found == false){
+	//		        splitArray(findSmallest(), p);
+	//		}
+	//	}
+
+//	}
 
 	//This method is to control the re-merging of
 	//processes once the TTL of a process expires.
-	//@param memoryNode deadProcess which contains the 
+	//@param memoryNode deadProcess which contains the
 	//process that has ended.
 	public void endProcess(MemoryNode deadProcess)
 	{

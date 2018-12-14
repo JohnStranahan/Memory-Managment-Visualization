@@ -1,4 +1,5 @@
 package Controller;
+import Model.FindSmallest;
 import Model.MemoryNode;
 import Model.Process;
 import Model.BuddyAllocation;
@@ -18,9 +19,7 @@ public class Driver {
 
     	Process newProcess = new Process("process", 63,1,10);
 
-    	BuddyAllocation BA = new BuddyAllocation();
-		BA.allocateProcess(newProcess);
-		System.out.println(BA.toString());
+
 
         //Launches the GUI
 //        Application.launch(MemoryView.class, null);
