@@ -1,10 +1,10 @@
-package View;
+package Controller;
 
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.layout.StackPane;
 import java.util.ArrayList;
-
+import View.*;
 public class StackManager {
     private int nodeIndex, stackIndex;
     private ObservableList<Node> list;
