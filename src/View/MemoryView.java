@@ -1,5 +1,6 @@
 package View;
 
+import Controller.MemoryController;
 import javafx.application.Application;
 import javafx.beans.NamedArg;
 import javafx.beans.property.DoubleProperty;
@@ -47,12 +48,15 @@ public class MemoryView extends Application{
     private StackPane stack = new StackPane();
     private TableView<ProcessGui> table = new TableView<>();
     private StackManager manager = new StackManager(stack);
+    private MemoryController controller;
     /*
             Overridden method from Application class that sets up a stage(frame of the window) and a scene(where
             all the JavaFx components are held
          */
-    @Override
+
     public void start(Stage primaryStage) throws Exception {
+
+        controller = new MemoryController();
         //Construct the highest level pane
         BorderPane border = new BorderPane();
         ObservableList borderList = border.getChildren();
@@ -147,23 +151,23 @@ public class MemoryView extends Application{
         return vbox;
     }
 
-    private ProcessGui generateProcess() {
-        Random rand = new Random();
-        ProcessGui p;
-        //Size is between 1 and 256(max possible size our memory can hold)
-        int size = rand.nextInt(247) + 10;
-        //Amount of time the process is alive is completely random as it should be
-        int timeLeft = rand.nextInt(30) + 1;
-
-        if (size <= 32) {
-            p = new SmallProcess("Small", size, timeLeft);
-        } else if (size <= 128) {
-            p = new MediumProcess("Medium", size, timeLeft);
-        } else {
-            p = new LargeProcess("Large", size, timeLeft);
-        }
-        return p;
-    }
+//    private ProcessGui generateProcess() {
+//        Random rand = new Random();
+//        ProcessGui p;
+//        //Size is between 1 and 256(max possible size our memory can hold)
+//        int size = rand.nextInt(247) + 10;
+//        //Amount of time the process is alive is completely random as it should be
+//        int timeLeft = rand.nextInt(30) + 1;
+//
+//        if (size <= 32) {
+//            p = new SmallProcess("Small", size, timeLeft);
+//        } else if (size <= 128) {
+//            p = new MediumProcess("Medium", size, timeLeft);
+//        } else {
+//            p = new LargeProcess("Large", size, timeLeft);
+//        }
+//        return p;
+//    }
 
 
 
@@ -179,9 +183,12 @@ public class MemoryView extends Application{
         arrive.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                if(manager.addProcess(generateProcess())){
+                if (manager.addProcess(controller.generateProcess())) {
                     addTableRow();
                 }
+//                if(manager.addProcess(generateProcess())){
+//                    addTableRow();
+//                }
             }
         });
 
@@ -191,7 +198,6 @@ public class MemoryView extends Application{
             public void run() {
                 try {
                     tableTicker();
-                    refreshVBox();
                 }
                 catch (InterruptedException e) {
 
