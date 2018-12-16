@@ -1,17 +1,20 @@
 package Controller;
 
+import Model.BuddyAllocation;
 import Model.Process;
 import View.*;
 import javafx.stage.Stage;
 import javafx.application.Application;
 
-import java.util.Random;
+import java.util.*;
 
 public class MemoryController {
-
+    Queue<Process> waitingProcess;
+    BuddyAllocation buddyAllocation;
 
     public MemoryController() throws Exception{
-
+        waitingProcess = new LinkedList<>();
+        buddyAllocation = new BuddyAllocation();
     }
 
     public void initView() throws Exception {
@@ -30,6 +33,7 @@ public class MemoryController {
         String name = "" + pid;
 
         Process p = new Process(name , size, timeLeft, pid);
+        //To be determined based on Gene's and Nick's discretion.
 
         if (size <= 32) {
             pg = new SmallProcess("Small", size, timeLeft);
@@ -42,7 +46,19 @@ public class MemoryController {
     }
 
     public void countdown() {
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                try {
 
+
+                }
+                catch (InterruptedException e) {
+
+                }
+            }
+        }, 0, 1000);
     }
 
     public void removeProcess() {

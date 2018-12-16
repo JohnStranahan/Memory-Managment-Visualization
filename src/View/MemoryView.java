@@ -192,18 +192,18 @@ public class MemoryView extends Application{
             }
         });
 
-        Timer timer = new Timer();
-        timer.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                try {
-                    tableTicker();
-                }
-                catch (InterruptedException e) {
-
-                }
-            }
-        }, 0, 1000);
+//        Timer timer = new Timer();
+//        timer.scheduleAtFixedRate(new TimerTask() {
+//            @Override
+//            public void run() {
+//                try {
+//                    tableTicker();
+//                }
+//                catch (InterruptedException e) {
+//
+//                }
+//            }
+//        }, 0, 1000);
 
 
         depart.setOnAction(new EventHandler<ActionEvent>() {
