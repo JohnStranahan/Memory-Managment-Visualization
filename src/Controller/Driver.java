@@ -62,14 +62,12 @@ public class Driver {
 				int rTTL = ran.nextInt(10) +5;
 				int rPid = ran.nextInt();
 				Process randomProcess = new Process(ran.toString(), rSize,rTTL,rPid);
-				FindSmallest add = new FindSmallest(BA);
+				boolean fits = BA.allocateProcess(randomProcess);
 
-				if(add.allocateProcess(randomProcess) == false){
+				if(fits == false){
 					waitingProcess.add(randomProcess);
 				}
-				else{
-					add.allocateProcess(randomProcess);
-				}
+				
 			}
 
             /*
