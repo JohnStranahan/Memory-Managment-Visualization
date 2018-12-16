@@ -38,29 +38,29 @@ public class FindSmallest
         return smallest;
     }
 
-    public void allocateProcess(int Size)
+    public boolean allocateProcess(int Size)
     {
         boolean bestSize = false;
         int bestFit = findBestFit(Size);
 
         //now find node to allocate process
-        MemoryNode imDumb = null;
+        MemoryNode sNode = null;
         MemoryNode toAllocate = null;
         int iterations = 1;
 
         while(bestSize == false){
-            imDumb = b.getMNode();
-            while(imDumb != null && bestSize == false){
-                if((imDumb.getAllocationArray().length == bestFit) && (imDumb.isAllocated() == false)){
+            sNode = b.getMNode();
+            while(sNode != null && bestSize == false){
+                if((sNode.getAllocationArray().length == bestFit) && (sNode.isAllocated() == false)){
                     bestSize = true;
-                    toAllocate = imDumb;
+                    toAllocate = sNode;
                 }
                 else{
-                    imDumb = imDumb.getNext();
+                    sNode = sNode.getNext();
                 }
             }
             if(bestSize == false){
-                imDumb = b.getMNode();
+                sNode = b.getMNode();
                 System.out.println("Split to fit!");
                 MemoryNode s = findSmall();
                 if(s.isAllocated() == false){
@@ -74,23 +74,23 @@ public class FindSmallest
                         x = x*2;
                         x = findBestFit(x);
                         System.out.println("Best fit is: " + x);
-                        imDumb = b.getMNode();
-                        while(imDumb != null && hasSplit == false){
-                            if(imDumb.getAllocationArray().length == x &&
-                                    imDumb.isAllocated() == false){
+                        sNode = b.getMNode();
+                        while(sNode != null && hasSplit == false){
+                            if(sNode.getAllocationArray().length == x &&
+                                    sNode.isAllocated() == false){
                                 hasSplit = true;
                                 System.out.println("Found it!");
-                                System.out.println("Splitting " + imDumb.getAllocationArray().length);
-                                b.splitArray(imDumb,null);
+                                System.out.println("Splitting " + sNode.getAllocationArray().length);
+                                b.splitArray(sNode,null);
 
                             }
                             else{
-                                imDumb = imDumb.getNext();
+                                sNode = sNode.getNext();
                             }
                         }
                     }
                 }
-                imDumb = b.getMNode();
+                sNode = b.getMNode();
             }
             iterations++;
             if(iterations > 4){
@@ -103,9 +103,11 @@ public class FindSmallest
 
             System.out.println("The best fit node is " + toAllocate + " of size " + toAllocate.getAllocationArray().length);
             toAllocate.allocate(Size);
+            return true;
         }
         else{
             System.out.println("There is no node big enough for that process currently.");
+            return false;
         }
 
 

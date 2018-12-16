@@ -18,3 +18,4 @@ src/Model/Processinterface.java
 src/View/MemoryView.java
 src/View/Process.java
 src/View/StackManager.java
+/bin/
