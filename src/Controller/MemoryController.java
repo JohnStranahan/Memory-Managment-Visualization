@@ -1,5 +1,6 @@
 package Controller;
 
+import Model.*;
 import Model.Process;
 import View.*;
 import javafx.stage.Stage;
@@ -8,6 +9,10 @@ import javafx.application.Application;
 import java.util.Random;
 
 public class MemoryController {
+
+    //Book has these references
+    private MemoryModel model;
+    private MemoryView view;
 
 
     public MemoryController() throws Exception{
@@ -46,6 +51,10 @@ public class MemoryController {
     }
 
     public void removeProcess() {
+
+    }
+
+    public void addProcess(){
 
     }
 

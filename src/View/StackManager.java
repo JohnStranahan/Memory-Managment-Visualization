@@ -32,14 +32,9 @@ public class StackManager {
         boolean result = false;
         if(totalMemAllocated + p.getSize() <= 256){
             setCurrentProcess(p);
-            list.add(p.showProcess());
-            if(list.isEmpty()){
-                list.get(nodeIndex).setTranslateY(stackIndex-p.getSize());
-            }
-            else{
-                stackIndex -= p.getSize();
-                list.get(nodeIndex).setTranslateY(stackIndex);
-            }
+            list.add(p.getPane());
+            stackIndex -= p.getSize();
+            list.get(nodeIndex).setTranslateY(stackIndex);
             stackIndex -= p.getSize();
             nodeIndex++;
             totalMemAllocated += p.getSize();
@@ -50,12 +45,9 @@ public class StackManager {
     }
 
     public void removeProcess(ProcessGui p){
-        if (!stored.contains(p)) {
+        list.remove(nodeIndex-1);
+        nodeIndex--;
 
-        }
-        else {
-            list.remove(p.deleteProcess());
-        }
     }
 
     public void killProcess(ProcessGui p){

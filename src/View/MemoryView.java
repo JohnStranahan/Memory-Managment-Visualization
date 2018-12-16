@@ -151,46 +151,18 @@ public class MemoryView extends Application{
         return vbox;
     }
 
-//    private ProcessGui generateProcess() {
-//        Random rand = new Random();
-//        ProcessGui p;
-//        //Size is between 1 and 256(max possible size our memory can hold)
-//        int size = rand.nextInt(247) + 10;
-//        //Amount of time the process is alive is completely random as it should be
-//        int timeLeft = rand.nextInt(30) + 1;
-//
-//        if (size <= 32) {
-//            p = new SmallProcess("Small", size, timeLeft);
-//        } else if (size <= 128) {
-//            p = new MediumProcess("Medium", size, timeLeft);
-//        } else {
-//            p = new LargeProcess("Large", size, timeLeft);
-//        }
-//        return p;
-//    }
-
-
-
     private GridPane drawControl() throws InterruptedException{
 
         //Creating UI Components
         Button simulate = new Button("Simulate");
         Button arrive = new Button("New Process");
+        arrive.setOnAction(arriveHandler);
         Button depart = new Button("Remove Process");
+        depart.setOnAction(removeHandler);
         TextField inputTime = new TextField();
         inputTime.setPromptText("(secs)");
 
-        arrive.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                if (manager.addProcess(controller.generateProcess())) {
-                    addTableRow();
-                }
-//                if(manager.addProcess(generateProcess())){
-//                    addTableRow();
-//                }
-            }
-        });
+
 
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
@@ -206,11 +178,7 @@ public class MemoryView extends Application{
         }, 0, 1000);
 
 
-        depart.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-            }
-        });
+
 
         //Organize Input Control in a grid
         GridPane grid = new GridPane();
@@ -265,12 +233,23 @@ public class MemoryView extends Application{
         table.refresh();
     }
 
-    public void refreshVBox() {
+    private EventHandler<ActionEvent> arriveHandler = new EventHandler<ActionEvent>() {
+        @Override
+        public void handle(ActionEvent event) {
+            if (manager.addProcess(controller.generateProcess())) {
+                addTableRow();
+            }
+            event.consume();
+        }
+    };
 
-    }
-
-    public void removeTableRow(){
-        ProcessGui process = manager.getCurrentProcess();
-        table.getItems().remove(process);
-    }
+    private EventHandler<ActionEvent> removeHandler = new EventHandler<ActionEvent>() {
+        @Override
+        public void handle(ActionEvent event) {
+            ProcessGui p = table.getSelectionModel().getSelectedItem();
+            table.getItems().remove(p);
+            manager.removeProcess(p);
+            event.consume();
+        }
+    };
 }
