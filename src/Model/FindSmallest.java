@@ -38,10 +38,10 @@ public class FindSmallest
         return smallest;
     }
 
-    public boolean allocateProcess(int Size)
+    public boolean allocateProcess(Process p)
     {
         boolean bestSize = false;
-        int bestFit = findBestFit(Size);
+        int bestFit = findBestFit(p.getSize());
 
         //now find node to allocate process
         MemoryNode sNode = null;
@@ -68,7 +68,7 @@ public class FindSmallest
                 }
                 else{
                     System.out.println("Here");
-                    int x = Size;
+                    int x = p.getSize();
                     boolean hasSplit = false;
                     while(x <= 256 && hasSplit == false){
                         x = x*2;
@@ -102,7 +102,7 @@ public class FindSmallest
         if(bestSize == true){
 
             System.out.println("The best fit node is " + toAllocate + " of size " + toAllocate.getAllocationArray().length);
-            toAllocate.allocate(Size);
+            toAllocate.allocate(p.getSize());
             return true;
         }
         else{
