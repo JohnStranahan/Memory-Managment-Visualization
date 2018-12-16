@@ -21,6 +21,7 @@ public class BuddyAllocation
 		return this.mNode;
 	}
 
+
 	//This method splits an array in two.
 	//Will also store split arrays in new memory nodes.
 	//@param arr array to be split.
