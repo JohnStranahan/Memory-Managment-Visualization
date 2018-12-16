@@ -32,14 +32,14 @@ public abstract class MemoryModel {
 		while((search.getNext() != null) && (found != true)){
 			MemoryNode x = search.getNext();
 
-			if((search.getAllocationArray().length > x.getAllocationArray().length) && (x.isAllocated() == false)){
+			if((search.getAllocationArray().length >= x.getAllocationArray().length) && (x.isAllocated() == false)){
 				smallest = x;
 				found = true;
 			}
 
 			search = x;
 		}
-
+		System.out.println(smallest);
 		return smallest;
     }
     
