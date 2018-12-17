@@ -10,12 +10,18 @@ import java.util.Random;
 
 public class MemoryController {
 
+    private StackManager stackManager;
+    private TableManager tableManager;
+
     //Book has these references
     private MemoryModel model;
     private MemoryView view;
 
-
+    //Maybe manage both View elements from the Controller?
     public MemoryController() throws Exception{
+       // view = new MemoryView();
+       // stackManager = new StackManager(view.getStack());
+       // tableManager = new TableManager(view.getTable());
 
     }
 
