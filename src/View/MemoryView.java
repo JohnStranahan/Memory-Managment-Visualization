@@ -175,7 +175,7 @@ public class MemoryView extends Application{
 
                 }
             }
-        }, 0, 1000);
+        }, 0, 1250);
 
 
 
@@ -231,7 +231,7 @@ public class MemoryView extends Application{
                 //Literally have 0 idea why this works. But it helps deal with some JavaFX threading issue
                 Platform.runLater(()->{
                     manager.removeProcess(p); //Removes P from graphic stack
-                    iter.remove(); //Removes P from table
+                    table.getItems().remove(p);// Removes P from table
                 });
             }
             else {

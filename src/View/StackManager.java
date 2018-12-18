@@ -21,7 +21,7 @@ public class StackManager {
         Returns the index of the Process's pane in the stack's children list
      */
     public int getProcessIndex(ProcessGui p) {
-        return list.indexOf(p.getPane());
+        return list.lastIndexOf(p.getPane());
     }
 
     public boolean addProcess(ProcessGui p){
@@ -29,7 +29,9 @@ public class StackManager {
         if(totalMemAllocated + p.getSize() <= 256){
             list.add(p.getPane());
             stackIndex -= p.getSize();
-            list.get(getProcessIndex(p)).setTranslateY(stackIndex);
+            int index = getProcessIndex(p);
+            System.out.println("Add: " + p.getName() + " " + index);
+            list.get(index).setTranslateY(stackIndex);
             stackIndex -= p.getSize();
             totalMemAllocated += p.getSize();
             result = true;
@@ -38,7 +40,9 @@ public class StackManager {
     }
 
     public void removeProcess(ProcessGui p){
-        list.remove(getProcessIndex(p));
+        int index = getProcessIndex(p);
+        System.out.println("Remove: " + p.getName() + " " + index);
+        list.remove(index);
         stackIndex += p.getSize() * 2;
         totalMemAllocated -= p.getSize();
 
