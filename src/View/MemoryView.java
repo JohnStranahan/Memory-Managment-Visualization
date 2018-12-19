@@ -212,6 +212,12 @@ public class MemoryView extends Application{
         return table;
     }
 
+    public void update() {
+        /*
+
+         */
+    }
+
     public StackPane getStack(){
         return stack;
     }

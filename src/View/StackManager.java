@@ -48,6 +48,18 @@ public class StackManager {
 
     }
 
+    /*
+    Called every time a change is made to the stack in the event it needs to be re-organized
+     */
+    public void shift(){
+        if(list.isEmpty()){
+            stackIndex = 256;
+        }
+        else{
+
+        }
+    }
+
     public int getStackIndex(){
         return stackIndex;
     }
