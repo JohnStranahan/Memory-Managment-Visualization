@@ -59,6 +59,15 @@ public class MemoryController {
 
     public void addProcess(){
 
+        /*
+        generate new process p
+        model.getFreeSpace
+        if p.getSize > freeSpace
+            add to model.waitingQueue
+        else
+            add to view.stack
+            add to view.table
+         */
     }
 
     public void interact() throws Exception {

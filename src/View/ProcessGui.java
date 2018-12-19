@@ -21,7 +21,6 @@ public class ProcessGui {
         this.size = size;
         this.timeLeft = timeLeft;
         pane = new StackPane();
-
     }
 
     public String getName(){
@@ -49,6 +48,10 @@ public class ProcessGui {
     }
 
     public StackPane getPane(){
+        return pane;
+    }
+
+    protected void buildPane(){
         Text text = new Text(this.getName());
 
         //Create black borders around Process pane
@@ -69,6 +72,5 @@ public class ProcessGui {
         west.setStrokeWidth(3);
 
         pane.getChildren().addAll(rect, text, south, north, east, west);
-        return pane;
     }
 }

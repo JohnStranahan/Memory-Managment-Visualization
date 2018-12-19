@@ -2,6 +2,7 @@ package View;
 
 import Controller.MemoryController;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.beans.NamedArg;
 import javafx.beans.property.DoubleProperty;
 import javafx.collections.FXCollections;
@@ -84,7 +85,6 @@ public class MemoryView extends Application{
         primaryStage.setTitle("Memory Manager z3000");
         primaryStage.setScene(borderScene);
         primaryStage.show();
-
     }
 
     private HBox drawMenuBar(){
@@ -175,7 +175,7 @@ public class MemoryView extends Application{
 
                 }
             }
-        }, 0, 1000);
+        }, 0, 1250);
 
 
 
@@ -212,10 +212,20 @@ public class MemoryView extends Application{
         return table;
     }
 
-    public void addTableRow(){
-        ProcessGui process = manager.getCurrentProcess();
-        table.getItems().add(process);
+    public void update() {
+        /*
+
+         */
     }
+
+    public StackPane getStack(){
+        return stack;
+    }
+
+    public TableView<ProcessGui> getTable() {
+        return table;
+    }
+
 
     public void tableTicker() throws InterruptedException {
         Iterator<ProcessGui> iter = table.getItems().iterator();
@@ -224,7 +234,11 @@ public class MemoryView extends Application{
             ProcessGui p = iter.next();
 
             if (p.getTimeLeft() < 1) {
-                iter.remove();
+                //Literally have 0 idea why this works. But it helps deal with some JavaFX threading issue
+                Platform.runLater(()->{
+                    manager.removeProcess(p); //Removes P from graphic stack
+                    table.getItems().remove(p);// Removes P from table
+                });
             }
             else {
                 p.setTimeLeft(p.getTimeLeft()-1);
@@ -236,10 +250,13 @@ public class MemoryView extends Application{
     private EventHandler<ActionEvent> arriveHandler = new EventHandler<ActionEvent>() {
         @Override
         public void handle(ActionEvent event) {
-            if (manager.addProcess(controller.generateProcess())) {
-                addTableRow();
+            ProcessGui p = controller.generateProcess();
+            if (manager.addProcess(p)) {
+                table.getItems().add(p);
             }
             event.consume();
+
+            //controller.clickNewProcess()
         }
     };
 
@@ -250,6 +267,8 @@ public class MemoryView extends Application{
             table.getItems().remove(p);
             manager.removeProcess(p);
             event.consume();
+
+            //controller.clickRemoveProcess()
         }
     };
 }

@@ -8,5 +8,6 @@ public class LargeProcess extends ProcessGui {
     public LargeProcess(String name, int size, int timeLeft){
         super(name, size, timeLeft);
         rect = new Rectangle(200, size * 2, Color.RED);
+        buildPane();
     }
 }
