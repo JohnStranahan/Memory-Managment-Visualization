@@ -35,7 +35,6 @@ public class MemoryController {
 
         Process p = new Process(name , size, timeLeft, pid);
         if (!buddyAllocation.allocateProcess(p)) {
-            System.out.println("ree");
             waitingProcess.add(p);
         }
 
