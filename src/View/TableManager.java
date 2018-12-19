@@ -10,5 +10,6 @@ we could keep an internal index so all current processes would be viewed top-dow
 public class TableManager {
     private ObservableList<Node> list;
     public TableManager(TableView table){
+
     }
 }

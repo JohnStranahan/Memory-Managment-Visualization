@@ -35,29 +35,22 @@ import java.util.*;
 
 import java.util.concurrent.TimeUnit;
 
-/*
-    Created the Enum Memory Size because I was lazy
-
-
-
- */
 
 public class MemoryView extends Application{
 
     private static final int TOTAL_MEMORY_ALLOCATED  = 256;
     private static MemorySize MEMORY_SIZE = MemorySize.KB;
-    private StackPane stack = new StackPane();
-    private TableView<ProcessGui> table = new TableView<>();
-    private StackManager manager = new StackManager(stack);
+    private static StackPane stack = new StackPane();
+    private static TableView<ProcessGui> table = new TableView<>();
+    private static StackManager manager = new StackManager(stack);
     private MemoryController controller;
-    /*
-            Overridden method from Application class that sets up a stage(frame of the window) and a scene(where
-            all the JavaFx components are held
-         */
+
+    public MemoryView(MemoryController controller){
+        this.controller = controller;
+    }
+
 
     public void start(Stage primaryStage) throws Exception {
-
-        controller = new MemoryController();
         //Construct the highest level pane
         BorderPane border = new BorderPane();
         ObservableList borderList = border.getChildren();
@@ -212,17 +205,11 @@ public class MemoryView extends Application{
         return table;
     }
 
-    public void update() {
-        /*
-
-         */
+    public static StackManager getStackManager(){
+        return manager;
     }
 
-    public StackPane getStack(){
-        return stack;
-    }
-
-    public TableView<ProcessGui> getTable() {
+    public static TableView<ProcessGui> getTable() {
         return table;
     }
 
@@ -250,25 +237,18 @@ public class MemoryView extends Application{
     private EventHandler<ActionEvent> arriveHandler = new EventHandler<ActionEvent>() {
         @Override
         public void handle(ActionEvent event) {
-            ProcessGui p = controller.generateProcess();
-            if (manager.addProcess(p)) {
-                table.getItems().add(p);
-            }
+            controller.clickNewProcess();
             event.consume();
 
-            //controller.clickNewProcess()
+            //
         }
     };
 
     private EventHandler<ActionEvent> removeHandler = new EventHandler<ActionEvent>() {
         @Override
         public void handle(ActionEvent event) {
-            ProcessGui p = table.getSelectionModel().getSelectedItem();
-            table.getItems().remove(p);
-            manager.removeProcess(p);
+            controller.clickRemoveProcess();
             event.consume();
-
-            //controller.clickRemoveProcess()
         }
     };
 }

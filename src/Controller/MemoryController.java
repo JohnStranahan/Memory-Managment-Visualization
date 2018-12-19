@@ -3,6 +3,8 @@ package Controller;
 import Model.*;
 import Model.Process;
 import View.*;
+import javafx.scene.control.TableView;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.application.Application;
 
@@ -11,16 +13,18 @@ import java.util.Random;
 public class MemoryController {
 
     //Book has these references
-    private MemoryModel model;
     private MemoryView view;
+    public StackManager stackManager;
+    public TableView<ProcessGui> table;
     
-    public MemoryController() throws Exception{
-       // view = new MemoryView();
-
-
+    public MemoryController(){
+        view = new MemoryView(this);
+        stackManager = view.getStackManager();
+        table = view.getTable();
+        Application.launch(MemoryView.class, null);
     }
 
-    public void initView() throws Exception {
+    public void initView(){
         Application.launch(MemoryView.class, null);
     }
 
@@ -51,8 +55,17 @@ public class MemoryController {
 
     }
 
-    public void removeProcess() {
+    public void clickRemoveProcess() {
+        ProcessGui p = table.getSelectionModel().getSelectedItem();
+        table.getItems().remove(p);
+        stackManager.removeProcess(p);
+    }
 
+    public void clickNewProcess(){
+        ProcessGui p = generateProcess();
+        if (stackManager.addProcess(p)) {
+            table.getItems().add(p);
+        }
     }
 
     public void addProcess(){
