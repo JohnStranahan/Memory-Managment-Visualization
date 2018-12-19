@@ -6,18 +6,17 @@ import View.*;
 import javafx.stage.Stage;
 import javafx.application.Application;
 
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Random;
 
 public class MemoryController {
+    Queue<Process> waitingProcess;
+    BuddyAllocation buddyAllocation;
 
-    //Book has these references
-    private MemoryModel model;
-    private MemoryView view;
-    
     public MemoryController() throws Exception{
-       // view = new MemoryView();
-
-
+        waitingProcess = new LinkedList<>();
+        buddyAllocation = new BuddyAllocation();
     }
 
     public void initView() throws Exception {
@@ -27,15 +26,18 @@ public class MemoryController {
     public ProcessGui generateProcess() {
         Random rand = new Random();
         ProcessGui pg;
-        
-        //Size is between 1 and 256(max possible size our memory can hold)
+
         int size = rand.nextInt(247) + 10;
-        //Amount of time the process is alive is completely random as it should be
         int timeLeft = rand.nextInt(30) + 1;
         int pid = rand.nextInt(99999999) + 1;
         String name = "" + pid;
+        System.out.println(size);
 
         Process p = new Process(name , size, timeLeft, pid);
+        if (!buddyAllocation.allocateProcess(p)) {
+            System.out.println("ree");
+            waitingProcess.add(p);
+        }
 
         if (size <= 32) {
             pg = new SmallProcess("Small", size, timeLeft);
