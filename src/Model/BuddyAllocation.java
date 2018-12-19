@@ -289,7 +289,7 @@ public class BuddyAllocation
                     System.out.println("Here");
                     int x = p.getSize();
                     boolean hasSplit = false;
-                    while(x <= 256 && hasSplit == false){
+                    while(x <= sNode.getAllocationArray().length && hasSplit == false){
                         x = x*2;
                         x = findBestFit(x);
 //                        System.out.println("Best fit is: " + x);
