@@ -34,16 +34,20 @@ public class MemoryController {
         System.out.println(size);
 
         Process p = new Process(name , size, timeLeft, pid);
-        if (!buddyAllocation.allocateProcess(p)) {
+        System.out.println(p.getName());
+        boolean fits = buddyAllocation.allocateProcess(p);
+        if (!fits) {
             waitingProcess.add(p);
         }
 
+
+
         if (size <= 32) {
-            pg = new SmallProcess("Small", size, timeLeft);
+            pg = new SmallProcess(name, size, timeLeft);
         } else if (size <= 128) {
-            pg = new MediumProcess("Medium", size, timeLeft);
+            pg = new MediumProcess(name, size, timeLeft);
         } else {
-            pg = new LargeProcess("Large", size, timeLeft);
+            pg = new LargeProcess(name, size, timeLeft);
         }
         return pg;
     }
@@ -54,17 +58,21 @@ public class MemoryController {
             @Override
             public void run() {
                 try {
-                    tableTicker(table, manager);
+                    System.out.println("ree");
+                    decrementCounter(table, manager);
+
                 }
                 catch (InterruptedException e) {
-
+                    System.out.println("no");
                 }
             }
         }, 0, 1250);
     }
 
-    public void tableTicker(TableView<ProcessGui> table, StackManager manager) throws InterruptedException {
+    public void decrementCounter(TableView<ProcessGui> table, StackManager manager) throws InterruptedException {
         Iterator<ProcessGui> iter = table.getItems().iterator();
+
+
 
         while (iter.hasNext()) {
             ProcessGui p = iter.next();
@@ -75,8 +83,16 @@ public class MemoryController {
                     manager.removeProcess(p); //Removes P from graphic stack
                     table.getItems().remove(p);// Removes P from table
                 });
+//                buddyAllocation.endProcess(processNode);
+//                System.out.println(buddyAllocation.toString());
             }
             else {
+
+                MemoryNode processNode = buddyAllocation.getMNode();
+                while (!processNode.getStoredProcess().getName().equals(p.getName())) {
+                    processNode = processNode.getNext();
+                }
+                processNode.getStoredProcess().setTTL(processNode.getStoredProcess().getTTL()-1);
                 p.setTimeLeft(p.getTimeLeft()-1);
             }
         }
@@ -88,20 +104,14 @@ public class MemoryController {
 
     }
 
-    public void addProcess(){
 
-        /*
-        generate new process p
-        model.getFreeSpace
-        if p.getSize > freeSpace
-            add to model.waitingQueue
-        else
-            add to view.stack
-            add to view.table
-         */
-    }
+
 
     public void interact() throws Exception {
         initView();
+//        TableView<ProcessGui> table = MemoryView.getTable();
+//        StackManager manager = MemoryView.getManager();
+//        update(table, manager);
+
     }
 }

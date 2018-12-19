@@ -318,10 +318,11 @@ public class BuddyAllocation
         }
 
 
-        if(bestSize == true){
+        if(bestSize){
 
             System.out.println("The best fit node is " + toAllocate + " of size " + toAllocate.getAllocationArray().length);
             toAllocate.allocate(p.getSize());
+			sNode.setStoredProcess(p);
             return true;
         }
         else{

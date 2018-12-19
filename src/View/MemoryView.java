@@ -214,6 +214,9 @@ public class MemoryView extends Application{
         return table;
     }
 
+    public StackManager getManager() {
+        return manager;
+    }
 
     public void tableTicker() throws InterruptedException {
         Iterator<ProcessGui> iter = table.getItems().iterator();
