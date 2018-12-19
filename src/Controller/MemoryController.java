@@ -3,12 +3,12 @@ package Controller;
 import Model.*;
 import Model.Process;
 import View.*;
+import javafx.application.Platform;
+import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 import javafx.application.Application;
 
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Random;
+import java.util.*;
 
 public class MemoryController {
     Queue<Process> waitingProcess;
@@ -48,9 +48,41 @@ public class MemoryController {
         return pg;
     }
 
-    public void countdown() {
+    public void update(TableView<ProcessGui> table, StackManager manager) {
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                try {
+                    tableTicker(table, manager);
+                }
+                catch (InterruptedException e) {
 
+                }
+            }
+        }, 0, 1250);
     }
+
+    public void tableTicker(TableView<ProcessGui> table, StackManager manager) throws InterruptedException {
+        Iterator<ProcessGui> iter = table.getItems().iterator();
+
+        while (iter.hasNext()) {
+            ProcessGui p = iter.next();
+
+            if (p.getTimeLeft() < 1) {
+                //Literally have 0 idea why this works. But it helps deal with some JavaFX threading issue
+                Platform.runLater(()->{
+                    manager.removeProcess(p); //Removes P from graphic stack
+                    table.getItems().remove(p);// Removes P from table
+                });
+            }
+            else {
+                p.setTimeLeft(p.getTimeLeft()-1);
+            }
+        }
+        table.refresh();
+    }
+
 
     public void removeProcess() {
 

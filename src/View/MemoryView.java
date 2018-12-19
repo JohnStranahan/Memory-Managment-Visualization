@@ -162,20 +162,8 @@ public class MemoryView extends Application{
         TextField inputTime = new TextField();
         inputTime.setPromptText("(secs)");
 
-
-
-        Timer timer = new Timer();
-        timer.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                try {
-                    tableTicker();
-                }
-                catch (InterruptedException e) {
-
-                }
-            }
-        }, 0, 1250);
+        controller.update(table, manager);
+        
 
 
 
