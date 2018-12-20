@@ -90,7 +90,6 @@ public class MemoryView extends Application{
     private VBox drawMemoryStack(){
         //Creating Visual Stack components
         Label totalMemAllocated = new Label("Total Memory Allocated: " + TOTAL_MEMORY_ALLOCATED + " (" + MEMORY_SIZE.toString() + ")");
-
         StackPane backGround = new StackPane();
 
         //10 pixel border around memory stack
@@ -118,14 +117,14 @@ public class MemoryView extends Application{
     private GridPane drawControl() throws InterruptedException{
 
         //Creating UI Components
-
         Button arrive = new Button("New Process");
         arrive.setOnAction(arriveHandler);
         Button depart = new Button("Remove Process");
         depart.setOnAction(removeHandler);
 
-        controller.update(table, manager);
 
+        controller.update(table, manager);
+        
         //Organize Input Control in a grid
         GridPane grid = new GridPane();
         grid.add(arrive, 0, 1);
@@ -215,7 +214,7 @@ public class MemoryView extends Application{
             manager.removeProcess(p);
             event.consume();
 
-           // controller.clickRemoveProcess();
+            //controller.clickRemoveProcess()
         }
     };
 }
