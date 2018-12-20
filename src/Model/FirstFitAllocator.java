@@ -49,7 +49,8 @@ public class FirstFitAllocator {
         if (processToEnd.getPrevious() != null) {
             processToEnd.getPrevious().setNext(processToEnd.getNext());
         }
-        sizeLeft -= processToEnd.getStoredProcess().getSize();
+        sizeLeft += processToEnd.getStoredProcess().getSize();
+
         return;
 
     }
