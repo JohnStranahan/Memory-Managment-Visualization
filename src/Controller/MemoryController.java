@@ -106,7 +106,6 @@ public class MemoryController {
                     table.getItems().add(pg);
                 });
             }
-            System.out.println(waitingProcess.peek().getSize());
         }
 
     }
