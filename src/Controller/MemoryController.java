@@ -53,8 +53,7 @@ public class MemoryController {
             public void run() {
                 try {
                     decrementCounter(table, manager);
-                    fillWaitingProcesses(manager);
-
+                    fillWaitingProcesses(table, manager);
                 }
                 catch (InterruptedException e) {
                     System.out.println("no");
@@ -89,9 +88,10 @@ public class MemoryController {
     }
 
 
-    public void fillWaitingProcesses(StackManager manager) {
-        while (!waitingProcess.isEmpty()) {
-            if (firstFitAllocator.allocateProcess(waitingProcess.poll())) {
+    public void fillWaitingProcesses(TableView<ProcessGui> table, StackManager manager) {
+        if (!waitingProcess.isEmpty()) {
+            if (firstFitAllocator.allocateProcess(waitingProcess.peek())) {
+                System.out.println("ree");
                 Process p = waitingProcess.remove();
                 ProcessGui pg;
                 if (p.getSize() <= 32) {
@@ -101,10 +101,14 @@ public class MemoryController {
                 } else {
                     pg = new LargeProcess(p.getName(), p.getSize(), p.getTTL());
                 }
-                manager.addProcess(pg);
+                Platform.runLater(()-> {
+                    manager.addProcess(pg);
+                    table.getItems().add(pg);
+                });
             }
+            System.out.println(waitingProcess.peek().getSize());
         }
-        return;
+
     }
 
 
