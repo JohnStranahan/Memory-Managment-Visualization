@@ -1,3 +1,4 @@
+
 package Model;
 //This program contains the logic pertaining
 //to the buddy system of memory allocation.
@@ -342,3 +343,4 @@ public class BuddyAllocation
 
     }
 }
+
