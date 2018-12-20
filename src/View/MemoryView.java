@@ -60,7 +60,6 @@ public class MemoryView extends Application{
         controller = new MemoryController();
         //Construct the highest level pane
         BorderPane border = new BorderPane();
-        ObservableList borderList = border.getChildren();
 
         //Set up MenuBar at the top of GUI
 
@@ -155,11 +154,6 @@ public class MemoryView extends Application{
         return table;
     }
 
-    public void update() {
-        /*
-
-         */
-    }
 
     public StackPane getStack(){
         return stack;
@@ -173,25 +167,6 @@ public class MemoryView extends Application{
         return manager;
     }
 
-//    public void tableTicker() throws InterruptedException {
-//        Iterator<ProcessGui> iter = table.getItems().iterator();
-//
-//        while (iter.hasNext()) {
-//            ProcessGui p = iter.next();
-//
-//            if (p.getTimeLeft() < 1) {
-//                //Literally have 0 idea why this works. But it helps deal with some JavaFX threading issue
-//                Platform.runLater(()->{
-//                    manager.removeProcess(p); //Removes P from graphic stack
-//                    table.getItems().remove(p);// Removes P from table
-//                });
-//            }
-//            else {
-//                p.setTimeLeft(p.getTimeLeft()-1);
-//            }
-//        }
-//        table.refresh();
-//    }
 
     private EventHandler<ActionEvent> arriveHandler = new EventHandler<ActionEvent>() {
         @Override
@@ -202,7 +177,6 @@ public class MemoryView extends Application{
             }
             event.consume();
 
-            //controller.clickNewProcess()
         }
     };
 
@@ -214,7 +188,6 @@ public class MemoryView extends Application{
             manager.removeProcess(p);
             event.consume();
 
-            //controller.clickRemoveProcess()
         }
     };
 }

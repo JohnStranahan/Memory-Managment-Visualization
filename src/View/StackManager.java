@@ -11,6 +11,12 @@ public class StackManager {
     private ObservableList<Node> list;
     private int totalMemAllocated;
 
+    public int getTotalMemAllocated(){
+        return totalMemAllocated;
+    }
+
+
+
     public StackManager(StackPane stack){
         stackIndex = 256;
         this.list = stack.getChildren();

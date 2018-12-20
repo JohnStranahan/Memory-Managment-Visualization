@@ -8,40 +8,23 @@ package Model;
 public abstract class MemoryModel {
    
     private MemoryNode mNode;
-
+    int numNodes;
     public MemoryModel(){
         
         mNode = new MemoryNode();
     }
 
-
+	public boolean isEmpty() {
+		if (numNodes == 0) {
+			return true;
+		}
+		return false;
+	}
     abstract void endProcess(MemoryNode deadProcess);
     
     abstract boolean allocateProcess(Process p);
 
-    public MemoryNode findSmallest() {
-    	MemoryNode search = this.mNode;
 
-		if((search.getPrevious() == null) && (search.getNext() == null)){
-			return search;
-		}
-
-		MemoryNode smallest = search;
-		boolean found = false;
-
-		while((search.getNext() != null) && (found != true)){
-			MemoryNode x = search.getNext();
-
-			if((search.getAllocationArray().length >= x.getAllocationArray().length) && (x.isAllocated() == false)){
-				smallest = x;
-				found = true;
-			}
-
-			search = x;
-		}
-		System.out.println(smallest);
-		return smallest;
-    }
     
 
 }

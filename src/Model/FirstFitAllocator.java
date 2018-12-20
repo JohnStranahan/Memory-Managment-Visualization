@@ -29,12 +29,7 @@ public class FirstFitAllocator extends MemoryModel{
         return false;
     }
 
-    public boolean isEmpty() {
-        if (numNodes == 0) {
-            return true;
-        }
-        return false;
-    }
+
 
     public void endProcess(MemoryNode processToEnd) {
         if (head == null || processToEnd == null) {

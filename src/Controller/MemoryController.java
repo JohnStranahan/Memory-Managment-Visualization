@@ -5,7 +5,6 @@ import Model.Process;
 import View.*;
 import javafx.application.Platform;
 import javafx.scene.control.TableView;
-import javafx.stage.Stage;
 import javafx.application.Application;
 
 import java.util.*;
@@ -14,7 +13,7 @@ public class MemoryController {
     Queue<Process> waitingProcess;
     FirstFitAllocator firstFitAllocator;
 
-    public MemoryController() throws Exception{
+    public MemoryController() throws Exception {
         waitingProcess = new LinkedList<Process>();
         firstFitAllocator = new FirstFitAllocator();
     }
@@ -26,17 +25,17 @@ public class MemoryController {
     public ProcessGui generateProcess() {
         Random rand = new Random();
         ProcessGui pg;
-      
+
         int size = rand.nextInt(245) + 10;
         int timeLeft = rand.nextInt(9) + 1;
         int pid = rand.nextInt(99999999) + 1;
         String name = "" + pid;
 
-        Process p = new Process(name , size, timeLeft, pid);
+        Process p = new Process(name, size, timeLeft, pid);
         if (!firstFitAllocator.allocateProcess(p)) {
             waitingProcess.add(p);
         }
-    	if (size <= 32) {
+        if (size <= 32) {
             pg = new SmallProcess(name, size, timeLeft);
         } else if (size <= 128) {
             pg = new MediumProcess(name, size, timeLeft);
@@ -54,8 +53,7 @@ public class MemoryController {
                 try {
                     decrementCounter(table, manager);
                     fillWaitingProcesses(table, manager);
-                }
-                catch (InterruptedException e) {
+                } catch (InterruptedException e) {
                     System.out.println("no");
                 }
             }
@@ -69,19 +67,18 @@ public class MemoryController {
         while (iter.hasNext()) {
             ProcessGui p = iter.next();
             if (p.getTimeLeft() < 1) {
-                Platform.runLater(()->{
+                Platform.runLater(() -> {
                     manager.removeProcess(p); //Removes P from graphic stack
                     table.getItems().remove(p);// Removes P from table
                 });
                 firstFitAllocator.endProcess(processNode);
-                
-            }
-            else {
+
+            } else {
                 while (!processNode.getStoredProcess().getName().equals(p.getName())) {
                     processNode = processNode.getNext();
                 }
-                processNode.getStoredProcess().setTTL(processNode.getStoredProcess().getTTL()-1);
-                p.setTimeLeft(p.getTimeLeft()-1);
+                processNode.getStoredProcess().setTTL(processNode.getStoredProcess().getTTL() - 1);
+                p.setTimeLeft(p.getTimeLeft() - 1);
             }
         }
         table.refresh();
@@ -101,7 +98,7 @@ public class MemoryController {
                 } else {
                     pg = new LargeProcess(p.getName(), p.getSize(), p.getTTL());
                 }
-                Platform.runLater(()-> {
+                Platform.runLater(() -> {
                     manager.addProcess(pg);
                     table.getItems().add(pg);
                 });
@@ -111,13 +108,7 @@ public class MemoryController {
     }
 
 
-
-
     public void interact() throws Exception {
         initView();
-//        TableView<ProcessGui> table = MemoryView.getTable();
-//        StackManager manager = MemoryView.getManager();
-//        update(table, manager);
-
     }
 }
