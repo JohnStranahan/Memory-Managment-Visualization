@@ -4,7 +4,7 @@ package Model;
 //to the buddy system of memory allocation.
 //It uses the memoryNode object.
 
-public class BuddyAllocation
+public class BuddyAllocation extends MemoryModel
 {
 	//mNode is the head of the MemoryNode linked list.
 	private MemoryNode mNode;
