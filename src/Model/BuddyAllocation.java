@@ -294,9 +294,9 @@ public class BuddyAllocation
                         x = findBestFit(x);
 //                        System.out.println("Best fit is: " + x);
                         sNode = mNode;
-                        while(sNode != null && hasSplit == false){
+                        while(sNode != null && !hasSplit){
                             if(sNode.getAllocationArray().length == x &&
-                                    sNode.isAllocated() == false){
+                                    !sNode.isAllocated()){
                                 hasSplit = true;
                                 System.out.println("Found it!");
                                 System.out.println("Splitting " + sNode.getAllocationArray().length);

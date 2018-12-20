@@ -12,11 +12,11 @@ import java.util.*;
 
 public class MemoryController {
     Queue<Process> waitingProcess;
-    BuddyAllocation buddyAllocation;
+    FirstFitAllocator firstFitAllocator;
 
     public MemoryController() throws Exception{
         waitingProcess = new LinkedList<>();
-        buddyAllocation = new BuddyAllocation();
+        firstFitAllocator = new FirstFitAllocator();
     }
 
     public void initView() throws Exception {
@@ -28,19 +28,15 @@ public class MemoryController {
         ProcessGui pg;
 
         int size = rand.nextInt(247) + 10;
-        int timeLeft = rand.nextInt(30) + 1;
+        int timeLeft = rand.nextInt(10) + 1;
         int pid = rand.nextInt(99999999) + 1;
         String name = "" + pid;
         System.out.println(size);
 
         Process p = new Process(name , size, timeLeft, pid);
-        System.out.println(p.getName());
-        boolean fits = buddyAllocation.allocateProcess(p);
-        if (!fits) {
+        if (!firstFitAllocator.allocateProcess(p)) {
             waitingProcess.add(p);
         }
-
-
 
         if (size <= 32) {
             pg = new SmallProcess(name, size, timeLeft);
@@ -60,7 +56,6 @@ public class MemoryController {
                 try {
                     System.out.println("ree");
                     decrementCounter(table, manager);
-
                 }
                 catch (InterruptedException e) {
                     System.out.println("no");
@@ -71,24 +66,21 @@ public class MemoryController {
 
     public void decrementCounter(TableView<ProcessGui> table, StackManager manager) throws InterruptedException {
         Iterator<ProcessGui> iter = table.getItems().iterator();
-
+        MemoryNode processNode = firstFitAllocator.getHead();
 
 
         while (iter.hasNext()) {
             ProcessGui p = iter.next();
-
-            if (p.getTimeLeft() < 1) {
+            if (p.getTimeLeft() == 0) {
                 //Literally have 0 idea why this works. But it helps deal with some JavaFX threading issue
                 Platform.runLater(()->{
                     manager.removeProcess(p); //Removes P from graphic stack
                     table.getItems().remove(p);// Removes P from table
                 });
-//                buddyAllocation.endProcess(processNode);
-//                System.out.println(buddyAllocation.toString());
+                firstFitAllocator.endProcess(processNode);
             }
             else {
-
-                MemoryNode processNode = buddyAllocation.getMNode();
+                System.out.println(processNode.getStoredProcess().toString());
                 while (!processNode.getStoredProcess().getName().equals(p.getName())) {
                     processNode = processNode.getNext();
                 }
@@ -109,6 +101,7 @@ public class MemoryController {
 
     public void interact() throws Exception {
         initView();
+
 //        TableView<ProcessGui> table = MemoryView.getTable();
 //        StackManager manager = MemoryView.getManager();
 //        update(table, manager);
