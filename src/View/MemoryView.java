@@ -63,8 +63,7 @@ public class MemoryView extends Application{
         ObservableList borderList = border.getChildren();
 
         //Set up MenuBar at the top of GUI
-        HBox hbox = drawMenuBar();
-        border.setTop(hbox);
+
 
         //Set up the visual Memory Stack tool on the left of the GUI
         VBox vbox = drawMemoryStack();
@@ -87,46 +86,10 @@ public class MemoryView extends Application{
         primaryStage.show();
     }
 
-    private HBox drawMenuBar(){
-        //Creating Menu Options
-        Menu file = new Menu("File");
-        Menu chart = new Menu("Chart");
-
-        //Creating Nested Menu Options
-        MenuItem reset = new MenuItem("Reset");
-        RadioMenuItem on = new RadioMenuItem("On");
-        RadioMenuItem off = new RadioMenuItem("Off");
-        off.setSelected(true);
-        SeparatorMenuItem sep = new SeparatorMenuItem();
-        ToggleGroup chartGroup = new ToggleGroup();
-        chartGroup.getToggles().addAll(on, off);
-        file.getItems().add(reset);
-        //Have the chart screen off by default
-        off.setSelected(true);
-        chart.getItems().addAll(on, sep, off);
-
-        //Create extra space beyond menu options
-        Region spacer = new Region();
-        spacer.getStyleClass().add("menu-bar");
-        HBox.setHgrow(spacer, Priority.SOMETIMES);
-
-        //Build the Menu Bar
-        MenuBar menuBar = new MenuBar();
-        menuBar.getMenus().addAll(file, chart);
-
-        //Append menuBar to Hbox to create single row
-        HBox hbox = new HBox(menuBar, spacer); //addHBox()
-        return hbox;
-    }
 
     private VBox drawMemoryStack(){
         //Creating Visual Stack components
         Label totalMemAllocated = new Label("Total Memory Allocated: " + TOTAL_MEMORY_ALLOCATED + " (" + MEMORY_SIZE.toString() + ")");
-        Label totalMemUsed = new Label("Total Memory Used: ");
-        ProgressBar pBar = new ProgressBar();
-        pBar.setProgress(.75);
-        HBox fillerBar = new HBox(totalMemUsed, pBar);
-        fillerBar.setAlignment(Pos.BOTTOM_LEFT);
         StackPane backGround = new StackPane();
 
         //10 pixel border around memory stack
@@ -144,7 +107,7 @@ public class MemoryView extends Application{
         stack.setMaxHeight(512);
 
         //Organize Visual Stack components vertically
-        VBox vbox = new VBox(totalMemAllocated, backGround, fillerBar);
+        VBox vbox = new VBox(totalMemAllocated, backGround);
         vbox.setPadding(new Insets(25));
         vbox.setSpacing(10);
         vbox.setAlignment(Pos.TOP_LEFT);
@@ -154,21 +117,17 @@ public class MemoryView extends Application{
     private GridPane drawControl() throws InterruptedException{
 
         //Creating UI Components
-        Button simulate = new Button("Simulate");
         Button arrive = new Button("New Process");
         arrive.setOnAction(arriveHandler);
         Button depart = new Button("Remove Process");
         depart.setOnAction(removeHandler);
-        TextField inputTime = new TextField();
-        inputTime.setPromptText("(secs)");
+
 
         controller.update(table, manager);
-
+        
         //Organize Input Control in a grid
         GridPane grid = new GridPane();
-        grid.add(inputTime, 0, 0);
         grid.add(arrive, 0, 1);
-        grid.add(simulate, 1, 0);
         grid.add(depart, 1, 1);
         grid.setVgap(15);
         grid.setHgap(5);
