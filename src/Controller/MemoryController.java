@@ -26,7 +26,7 @@ public class MemoryController {
     public ProcessGui generateProcess() {
         Random rand = new Random();
         ProcessGui pg;
-
+      
         int size = rand.nextInt(245) + 10;
         int timeLeft = rand.nextInt(9) + 1;
         int pid = rand.nextInt(99999999) + 1;
@@ -121,4 +121,3 @@ public class MemoryController {
 
     }
 }
-

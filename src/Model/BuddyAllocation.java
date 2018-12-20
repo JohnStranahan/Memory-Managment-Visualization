@@ -4,7 +4,7 @@ package Model;
 //to the buddy system of memory allocation.
 //It uses the memoryNode object.
 
-public class BuddyAllocation
+public class BuddyAllocation extends MemoryModel
 {
 	//mNode is the head of the MemoryNode linked list.
 	private MemoryNode mNode;
@@ -194,37 +194,54 @@ public class BuddyAllocation
 	//process that has ended.
 	public void endProcess(MemoryNode deadProcess)
 	{
-		MemoryNode n = this.mNode;
-		int count = 0;
-		boolean found = false;
+                MemoryNode n = this.mNode;
+                int count = 0;
+                boolean found = false;
 
-		//searches memory stack to find index of node to be merged.
-		while((n != null) && (found == false)){
-			count++;
-			if(n == deadProcess){
-				found = true;
-			}
-			n = n.getNext();
-		}
+                System.out.println("Ending process");
 
-		MemoryNode tempPrevious = deadProcess.getPrevious();
-		MemoryNode tempNext = deadProcess.getNext();
-		if(deadProcess.getAllocationArray().length > 128) {
-			deadProcess.clearAllocations();
-			deadProcess.setStoredProcess(null);
-		}else {
-			if(((count % 2) == 0) && (tempPrevious.isAllocated() == false) &&
-					(deadProcess.getAllocationArray().length == tempPrevious.getAllocationArray().length)){
-				merge(tempPrevious, deadProcess);
-			}
-			//If index is an odd number, it will merge with the next node.
-			else if(((count % 2) != 0) && (tempNext.isAllocated() == false) &&
-					(deadProcess.getAllocationArray().length == tempNext.getAllocationArray().length)){
-				merge(deadProcess, tempNext);
-			}
-		}
-		//If index is an even number, it will merge with the previous node.
-		
+                //searches memory stack to find index of node to be merged.
+                while((n.getNext() != null) && (found == false)){
+                        count++;
+                        if(n == deadProcess){
+                                System.out.println("Found it!");
+                                found = true;
+                        }
+                        
+                }
+
+
+                MemoryNode tempPrevious = deadProcess.getPrevious();
+                MemoryNode tempNext = deadProcess.getNext();
+                deadProcess.clearAllocations();
+
+                System.out.println("Index: " + count);
+
+                System.out.println("Past counter");
+                if(n.getStoredProcess().getSize() >128) {
+                	n.clearAllocations();
+                	n.setStoredProcess(null);
+                }
+                else if(((count % 2) == 0) && (deadProcess.getAllocationArray().length == tempPrevious.getAllocationArray().length)
+                                && (tempPrevious.isAllocated() == false)){
+                        System.out.println("first condition");
+                        merge(tempPrevious, deadProcess);
+                }
+                else if(((count % 2) != 0) && (deadProcess.getAllocationArray().length == tempNext.getAllocationArray().length)
+                                && tempNext.isAllocated() == false){
+                        System.out.println("second condition");
+                        merge(deadProcess,tempNext);
+                }
+                else if(((count % 2) == 0) && (deadProcess.getAllocationArray().length == tempNext.getAllocationArray().length)
+                                && (tempNext.isAllocated() == false)){
+                        System.out.println("third condition");
+                        merge(deadProcess,tempNext);
+                }
+                else{
+                        System.out.println("Cannot merge at this time.");
+                }	
+
+		allClear();
 	}
 
 	public int findBestFit(int Size){
@@ -342,5 +359,29 @@ public class BuddyAllocation
 
 
     }
+
+
+        public boolean allClear(){
+                boolean anyAllocated = false;
+                MemoryNode n = this.mNode;
+
+                while(n != null){
+                        if(n.isAllocated() == true){
+                                anyAllocated = true;
+                                System.out.println("Here");
+                                return false;
+                        }
+                        n = n.getNext();
+                        System.out.println("Checking");
+                }
+
+                System.out.println("anyAllocted " + anyAllocated);
+                if(anyAllocated == false){
+                        this.mNode = new MemoryNode();
+                }
+
+                return true;
+        }
+
 }
 
