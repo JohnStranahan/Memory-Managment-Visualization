@@ -12,11 +12,11 @@ import java.util.*;
 
 public class MemoryController {
     Queue<Process> waitingProcess;
-    BuddyAllocation buddyAllocation;
+    FirstFitAllocator firstFitAllocator;
 
     public MemoryController() throws Exception{
         waitingProcess = new LinkedList<Process>();
-        buddyAllocation = new BuddyAllocation();
+        firstFitAllocator = new FirstFitAllocator();
     }
 
     public void initView() throws Exception {
@@ -31,25 +31,11 @@ public class MemoryController {
         int timeLeft = rand.nextInt(9) + 1;
         int pid = rand.nextInt(99999999) + 1;
         String name = "" + pid;
-        System.out.println(size);
 
         Process p = new Process(name , size, timeLeft, pid);
-        System.out.println(p.getName());
-        MemoryNode fnode = buddyAllocation.getMNode();
-        while(fnode != null) {
-        	System.out.println(fnode.getAllocationArray().length);
-        	System.out.println(fnode.isAllocated());
-        	fnode = fnode.getNext();
-        }
-        boolean fits = buddyAllocation.allocateProcess(p);
-        
-        
-        
-        if (!fits) {
+        if (!firstFitAllocator.allocateProcess(p)) {
             waitingProcess.add(p);
-//            return null;
         }
-//        else {
     	if (size <= 32) {
             pg = new SmallProcess(name, size, timeLeft);
         } else if (size <= 128) {
@@ -58,10 +44,6 @@ public class MemoryController {
             pg = new LargeProcess(name, size, timeLeft);
         }
         return pg;
-//        }
-
-
-        
     }
 
     public void update(TableView<ProcessGui> table, StackManager manager) {
@@ -70,9 +52,8 @@ public class MemoryController {
             @Override
             public void run() {
                 try {
-//                    System.out.println("ree");
-//                    System.out.println(buddyAllocation.getMNode().getStoredProcess().getName());
                     decrementCounter(table, manager);
+                    fillWaitingProcesses(manager);
 
                 }
                 catch (InterruptedException e) {
@@ -84,24 +65,19 @@ public class MemoryController {
 
     public void decrementCounter(TableView<ProcessGui> table, StackManager manager) throws InterruptedException {
         Iterator<ProcessGui> iter = table.getItems().iterator();
-        MemoryNode processNode = buddyAllocation.getMNode();
+        MemoryNode processNode = firstFitAllocator.getHead();
 
         while (iter.hasNext()) {
             ProcessGui p = iter.next();
-//            processNode = processNode.getNext();
             if (p.getTimeLeft() < 1) {
-                //Literally have 0 idea why this works. But it helps deal with some JavaFX threading issue
                 Platform.runLater(()->{
                     manager.removeProcess(p); //Removes P from graphic stack
                     table.getItems().remove(p);// Removes P from table
                 });
-                buddyAllocation.endProcess(processNode);
+                firstFitAllocator.endProcess(processNode);
                 
             }
             else {
-
-//                MemoryNode processNode = buddyAllocation.getMNode();
-//            	processNode = processNode.getNext();
                 while (!processNode.getStoredProcess().getName().equals(p.getName())) {
                     processNode = processNode.getNext();
                 }
@@ -113,8 +89,22 @@ public class MemoryController {
     }
 
 
-    public void removeProcess() {
-
+    public void fillWaitingProcesses(StackManager manager) {
+        while (!waitingProcess.isEmpty()) {
+            if (firstFitAllocator.allocateProcess(waitingProcess.poll())) {
+                Process p = waitingProcess.remove();
+                ProcessGui pg;
+                if (p.getSize() <= 32) {
+                    pg = new SmallProcess(p.getName(), p.getSize(), p.getTTL());
+                } else if (p.getSize() <= 128) {
+                    pg = new MediumProcess(p.getName(), p.getSize(), p.getTTL());
+                } else {
+                    pg = new LargeProcess(p.getName(), p.getSize(), p.getTTL());
+                }
+                manager.addProcess(pg);
+            }
+        }
+        return;
     }
 
 

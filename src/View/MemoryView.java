@@ -163,10 +163,6 @@ public class MemoryView extends Application{
         inputTime.setPromptText("(secs)");
 
         controller.update(table, manager);
-        
-
-
-
 
         //Organize Input Control in a grid
         GridPane grid = new GridPane();
