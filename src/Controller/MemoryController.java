@@ -26,14 +26,30 @@ public class MemoryController {
     public ProcessGui generateProcess() {
         Random rand = new Random();
         ProcessGui pg;
-
-        int size = rand.nextInt(245) + 10;
-        int timeLeft = rand.nextInt(9) + 1;
-        int pid = rand.nextInt(99999999) + 1;
-        String name = "" + pid;
+        int size;
+        int timeLeft;
+        int pid;
+        Process p;
+        String name;
+        System.out.println(waitingProcess.toString());
+        if(waitingProcess.isEmpty()) {
+	        size = rand.nextInt(245) + 10;
+	        timeLeft = rand.nextInt(9) + 1;
+	        pid = rand.nextInt(99999999) + 1;
+	        name = "" + pid;
+	        p = new Process(name , size, timeLeft, pid);
+        }
+        else {
+        	size = waitingProcess.peek().getSize();
+        	timeLeft = waitingProcess.peek().getTTL();
+        	pid = waitingProcess.peek().getPid();
+        	name = "" + pid;
+        	p = waitingProcess.remove();
+        }
+        
         System.out.println(size);
-
-        Process p = new Process(name , size, timeLeft, pid);
+        
+        
         System.out.println(p.getName());
         MemoryNode fnode = buddyAllocation.getMNode();
         while(fnode != null) {
