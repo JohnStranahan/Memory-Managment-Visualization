@@ -203,6 +203,7 @@ public class BuddyAllocation
 			if(n == deadProcess){
 				found = true;
 			}
+			n = n.getNext();
 		}
 
 		MemoryNode tempPrevious = deadProcess.getPrevious();
