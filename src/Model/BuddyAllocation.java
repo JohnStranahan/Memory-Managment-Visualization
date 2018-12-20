@@ -236,6 +236,8 @@ public class BuddyAllocation
                 else{
                         System.out.println("Cannot merge at this time.");
                 }	
+
+		allClear();
 	}
 
 	public int findBestFit(int Size){
@@ -353,5 +355,29 @@ public class BuddyAllocation
 
 
     }
+
+
+        public boolean allClear(){
+                boolean anyAllocated = false;
+                MemoryNode n = this.mNode;
+
+                while(n != null){
+                        if(n.isAllocated() == true){
+                                anyAllocated = true;
+                                System.out.println("Here");
+                                return false;
+                        }
+                        n = n.getNext();
+                        System.out.println("Checking");
+                }
+
+                System.out.println("anyAllocted " + anyAllocated);
+                if(anyAllocated == false){
+                        this.mNode = new MemoryNode();
+                }
+
+                return true;
+        }
+
 }
 
