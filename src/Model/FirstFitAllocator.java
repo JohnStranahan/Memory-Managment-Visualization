@@ -1,6 +1,6 @@
 package Model;
 
-public class FirstFitAllocator {
+public class FirstFitAllocator extends MemoryModel{
     MemoryNode mNode;
     MemoryNode head;
     int sizeLeft;
