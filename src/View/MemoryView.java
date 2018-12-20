@@ -125,10 +125,6 @@ public class MemoryView extends Application{
 
         controller.update(table, manager);
         
-
-
-
-
         //Organize Input Control in a grid
         GridPane grid = new GridPane();
         grid.add(arrive, 0, 1);
