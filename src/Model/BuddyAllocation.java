@@ -4,7 +4,7 @@ package Model;
 //to the buddy system of memory allocation.
 //It uses the memoryNode object.
 
-public class BuddyAllocation
+public class BuddyAllocation extends MemoryModel
 {
 	//mNode is the head of the MemoryNode linked list.
 	private MemoryNode mNode;
@@ -201,13 +201,13 @@ public class BuddyAllocation
                 System.out.println("Ending process");
 
                 //searches memory stack to find index of node to be merged.
-                while((n != null) && (found == false)){
+                while((n.getNext() != null) && (found == false)){
                         count++;
                         if(n == deadProcess){
                                 System.out.println("Found it!");
                                 found = true;
                         }
-                        n = n.getNext();
+                        
                 }
 
 
@@ -218,7 +218,11 @@ public class BuddyAllocation
                 System.out.println("Index: " + count);
 
                 System.out.println("Past counter");
-                if(((count % 2) == 0) && (deadProcess.getAllocationArray().length == tempPrevious.getAllocationArray().length)
+                if(n.getStoredProcess().getSize() >128) {
+                	n.clearAllocations();
+                	n.setStoredProcess(null);
+                }
+                else if(((count % 2) == 0) && (deadProcess.getAllocationArray().length == tempPrevious.getAllocationArray().length)
                                 && (tempPrevious.isAllocated() == false)){
                         System.out.println("first condition");
                         merge(tempPrevious, deadProcess);

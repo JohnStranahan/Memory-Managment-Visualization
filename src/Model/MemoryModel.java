@@ -17,7 +17,7 @@ public abstract class MemoryModel {
 
     abstract void endProcess(MemoryNode deadProcess);
     
-    abstract void allocateProcess(Process p);
+    abstract boolean allocateProcess(Process p);
 
     public MemoryNode findSmallest() {
     	MemoryNode search = this.mNode;
