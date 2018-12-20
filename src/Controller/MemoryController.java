@@ -33,7 +33,7 @@ public class MemoryController {
         String name;
         System.out.println(waitingProcess.toString());
         if(waitingProcess.isEmpty()) {
-	        size = rand.nextInt(245) + 10;
+	        size = rand.nextInt(246) + 10;
 	        timeLeft = rand.nextInt(9) + 1;
 	        pid = rand.nextInt(99999999) + 1;
 	        name = "" + pid;
@@ -51,20 +51,19 @@ public class MemoryController {
         
         
         System.out.println(p.getName());
-        MemoryNode fnode = buddyAllocation.getMNode();
-        while(fnode != null) {
-        	System.out.println(fnode.getAllocationArray().length);
-        	System.out.println(fnode.isAllocated());
-        	fnode = fnode.getNext();
-        }
+//        MemoryNode fnode = buddyAllocation.getMNode();
+//        while(fnode != null) {
+//        	System.out.println(fnode.getAllocationArray().length);
+//        	System.out.println(fnode.isAllocated());
+//        	fnode = fnode.getNext();
+//        }
         boolean fits = buddyAllocation.allocateProcess(p);
-        
-        
-        
+
         if (!fits) {
             waitingProcess.add(p);
 //            return null;
         }
+        System.out.println(waitingProcess.toString());
 //        else {
     	if (size <= 32) {
             pg = new SmallProcess(name, size, timeLeft);
