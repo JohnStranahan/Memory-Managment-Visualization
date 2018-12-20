@@ -218,25 +218,25 @@ public class MemoryView extends Application{
         return manager;
     }
 
-    public void tableTicker() throws InterruptedException {
-        Iterator<ProcessGui> iter = table.getItems().iterator();
-
-        while (iter.hasNext()) {
-            ProcessGui p = iter.next();
-
-            if (p.getTimeLeft() < 1) {
-                //Literally have 0 idea why this works. But it helps deal with some JavaFX threading issue
-                Platform.runLater(()->{
-                    manager.removeProcess(p); //Removes P from graphic stack
-                    table.getItems().remove(p);// Removes P from table
-                });
-            }
-            else {
-                p.setTimeLeft(p.getTimeLeft()-1);
-            }
-        }
-        table.refresh();
-    }
+//    public void tableTicker() throws InterruptedException {
+//        Iterator<ProcessGui> iter = table.getItems().iterator();
+//
+//        while (iter.hasNext()) {
+//            ProcessGui p = iter.next();
+//
+//            if (p.getTimeLeft() < 1) {
+//                //Literally have 0 idea why this works. But it helps deal with some JavaFX threading issue
+//                Platform.runLater(()->{
+//                    manager.removeProcess(p); //Removes P from graphic stack
+//                    table.getItems().remove(p);// Removes P from table
+//                });
+//            }
+//            else {
+//                p.setTimeLeft(p.getTimeLeft()-1);
+//            }
+//        }
+//        table.refresh();
+//    }
 
     private EventHandler<ActionEvent> arriveHandler = new EventHandler<ActionEvent>() {
         @Override
