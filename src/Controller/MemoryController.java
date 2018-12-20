@@ -61,7 +61,7 @@ public class MemoryController {
                     System.out.println("no");
                 }
             }
-        }, 0, 1250);
+        }, 0, 1000);
     }
 
     public void decrementCounter(TableView<ProcessGui> table, StackManager manager) throws InterruptedException {
