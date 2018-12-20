@@ -12,11 +12,11 @@ import java.util.*;
 
 public class MemoryController {
     Queue<Process> waitingProcess;
-    FirstFitAllocator firstFitAllocator;
+    BuddyAllocation buddyAllocation;
 
     public MemoryController() throws Exception{
-        waitingProcess = new LinkedList<>();
-        firstFitAllocator = new FirstFitAllocator();
+        waitingProcess = new LinkedList<Process>();
+        buddyAllocation = new BuddyAllocation();
     }
 
     public void initView() throws Exception {
@@ -27,18 +27,30 @@ public class MemoryController {
         Random rand = new Random();
         ProcessGui pg;
 
-        int size = rand.nextInt(247) + 10;
-        int timeLeft = rand.nextInt(10) + 1;
+        int size = rand.nextInt(245) + 10;
+        int timeLeft = rand.nextInt(9) + 1;
         int pid = rand.nextInt(99999999) + 1;
         String name = "" + pid;
         System.out.println(size);
 
         Process p = new Process(name , size, timeLeft, pid);
-        if (!firstFitAllocator.allocateProcess(p)) {
-            waitingProcess.add(p);
+        System.out.println(p.getName());
+        MemoryNode fnode = buddyAllocation.getMNode();
+        while(fnode != null) {
+        	System.out.println(fnode.getAllocationArray().length);
+        	System.out.println(fnode.isAllocated());
+        	fnode = fnode.getNext();
         }
-
-        if (size <= 32) {
+        boolean fits = buddyAllocation.allocateProcess(p);
+        
+        
+        
+        if (!fits) {
+            waitingProcess.add(p);
+//            return null;
+        }
+//        else {
+    	if (size <= 32) {
             pg = new SmallProcess(name, size, timeLeft);
         } else if (size <= 128) {
             pg = new MediumProcess(name, size, timeLeft);
@@ -46,6 +58,10 @@ public class MemoryController {
             pg = new LargeProcess(name, size, timeLeft);
         }
         return pg;
+//        }
+
+
+        
     }
 
     public void update(TableView<ProcessGui> table, StackManager manager) {
@@ -54,8 +70,10 @@ public class MemoryController {
             @Override
             public void run() {
                 try {
-                    System.out.println("ree");
+//                    System.out.println("ree");
+//                    System.out.println(buddyAllocation.getMNode().getStoredProcess().getName());
                     decrementCounter(table, manager);
+
                 }
                 catch (InterruptedException e) {
                     System.out.println("no");
@@ -66,21 +84,24 @@ public class MemoryController {
 
     public void decrementCounter(TableView<ProcessGui> table, StackManager manager) throws InterruptedException {
         Iterator<ProcessGui> iter = table.getItems().iterator();
-        MemoryNode processNode = firstFitAllocator.getHead();
-
+        MemoryNode processNode = buddyAllocation.getMNode();
 
         while (iter.hasNext()) {
             ProcessGui p = iter.next();
-            if (p.getTimeLeft() == 0) {
+//            processNode = processNode.getNext();
+            if (p.getTimeLeft() < 1) {
                 //Literally have 0 idea why this works. But it helps deal with some JavaFX threading issue
                 Platform.runLater(()->{
                     manager.removeProcess(p); //Removes P from graphic stack
                     table.getItems().remove(p);// Removes P from table
                 });
-                firstFitAllocator.endProcess(processNode);
+                buddyAllocation.endProcess(processNode);
+                
             }
             else {
-                System.out.println(processNode.getStoredProcess().toString());
+
+//                MemoryNode processNode = buddyAllocation.getMNode();
+//            	processNode = processNode.getNext();
                 while (!processNode.getStoredProcess().getName().equals(p.getName())) {
                     processNode = processNode.getNext();
                 }
@@ -101,10 +122,10 @@ public class MemoryController {
 
     public void interact() throws Exception {
         initView();
-
 //        TableView<ProcessGui> table = MemoryView.getTable();
 //        StackManager manager = MemoryView.getManager();
 //        update(table, manager);
 
     }
 }
+
