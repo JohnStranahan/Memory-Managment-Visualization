@@ -10,4 +10,4 @@ The program also supports a Buddy System process allocation style, which allocat
 
 During runtime a GUI displays which process are currently running, and how much time they still need to execute. once their time to live reaches zero they are removed from the display.
 
-
+![alt text](https://raw.githubusercontent.com/JohnStranahan/Memory-Managment-Visualization/master/FirstFit.png)
