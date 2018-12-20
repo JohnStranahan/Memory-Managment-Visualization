@@ -127,21 +127,24 @@ public class BuddyAllocation
 
 		if((tempPrevious == null) && (tempNext == null)){
 			MemoryNode newNode = new MemoryNode(null, null, mergedArray, null);
-
+			newNode.clearAllocations();
+//			newNode.setStoredProcess(null);
 			this.mNode = newNode;
 		}
 		else if(tempPrevious == null){
 			MemoryNode newNode = new MemoryNode(null, tempNext, mergedArray, null);
 			tempNext.setPrevious(newNode);
-
+			newNode.clearAllocations();
 			this.mNode = newNode;
 		}
 		else if(tempNext == null){
 			MemoryNode newNode = new MemoryNode(tempPrevious, null, mergedArray, null);
+			newNode.clearAllocations();
 			tempPrevious.setNext(newNode);
 		}
 		else if((tempPrevious != null) && (tempNext != null)){
 			MemoryNode newNode = new MemoryNode(tempPrevious, tempNext, mergedArray, null);
+			newNode.clearAllocations();
 			tempPrevious.setNext(newNode);
 			tempNext.setPrevious(newNode);
 		}
@@ -204,17 +207,22 @@ public class BuddyAllocation
 
 		MemoryNode tempPrevious = deadProcess.getPrevious();
 		MemoryNode tempNext = deadProcess.getNext();
-
-		//If index is an even number, it will merge with the previous node.
-/*		if(((n % 2) == 0) && (tempPrevious.isAllocated() == false) &&
-				(deadProcess.getAllocationArray().length == tempPrevious.getAllocationArray().length)){
-			merge(tempPrevious, deadProcess);
+		if(deadProcess.getAllocationArray().length > 128) {
+			deadProcess.clearAllocations();
+			deadProcess.setStoredProcess(null);
+		}else {
+			if(((count % 2) == 0) && (tempPrevious.isAllocated() == false) &&
+					(deadProcess.getAllocationArray().length == tempPrevious.getAllocationArray().length)){
+				merge(tempPrevious, deadProcess);
+			}
+			//If index is an odd number, it will merge with the next node.
+			else if(((count % 2) != 0) && (tempNext.isAllocated() == false) &&
+					(deadProcess.getAllocationArray().length == tempNext.getAllocationArray().length)){
+				merge(deadProcess, tempNext);
+			}
 		}
-		//If index is an odd number, it will merge with the next node.
-		else if(((n % 2) != 0) && (tempNext.isAllocated() == false) &&
-				(deadProcess.getAllocationArray().length == tempNext.getAllocationArray().length)){
-			merge(deadProcess, tempNext);
-		}*/
+		//If index is an even number, it will merge with the previous node.
+		
 	}
 
 	public int findBestFit(int Size){

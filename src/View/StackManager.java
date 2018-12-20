@@ -26,7 +26,8 @@ public class StackManager {
 
     public boolean addProcess(ProcessGui p){
         boolean result = false;
-        if(totalMemAllocated + p.getSize() <= 256){
+        
+        if(totalMemAllocated + p.getSize() <= 256 && p != null){
             list.add(p.getPane());
             stackIndex -= p.getSize();
             int index = getProcessIndex(p);
