@@ -23,6 +23,7 @@ public class BuddyAllocation extends MemoryModel {
     //This method splits an array in two.
     //Will also store split arrays in new memory nodes.
     //@param arr array to be split.
+    //@param Process to be added to split array ... (we don't actually add processes here.)
     public void splitArray(MemoryNode node, Process process) {
 
         boolean[] arr = node.getAllocationArray();
@@ -42,14 +43,19 @@ public class BuddyAllocation extends MemoryModel {
         MemoryNode tempPrevious = node.getPrevious();
         MemoryNode tempNext = node.getNext();
 
+	//If node is the first node in the list (mNode = head)
         if (node.getPrevious() == null) {
 
+	    //If there is a node after the head, we need to delete references
+	    //If not, the second node will point to the head of the list
+	    //at all times.
             if (tempNext != null) {
                 tempNext.setPrevious(null);
                 node.setNext(null);
             }
             MemoryNode split1 = new MemoryNode(null, null, a, null);
             MemoryNode split2 = new MemoryNode(split1, tempNext, b, null);
+	    //Same situation as above.
             if (tempNext != null) {
                 tempNext.setPrevious(split2);
             }
@@ -155,6 +161,7 @@ public class BuddyAllocation extends MemoryModel {
         System.out.println("Ending process");
 
         //searches memory stack to find index of node to be merged.
+	//This is for stack organizations.
         while ((n.getNext() != null) && (found == false)) {
             count++;
             if (n == deadProcess) {
@@ -169,21 +176,36 @@ public class BuddyAllocation extends MemoryModel {
         MemoryNode tempNext = deadProcess.getNext();
         deadProcess.clearAllocations();
 
-        System.out.println("Index: " + count);
-
-        System.out.println("Past counter");
+	//First case checks to see if the node is the only
+	//node in the list.
         if (n.getStoredProcess().getSize() > 128) {
             n.clearAllocations();
             n.setStoredProcess(null);
-        } else if (((count % 2) == 0) && (deadProcess.getAllocationArray().length == tempPrevious.getAllocationArray().length)
+        }
+	//This case checks to see if the index of the dead node is 
+	//even. In this case, it will merge with the odd node
+	//that comes before it.
+       	else if (((count % 2) == 0) && (deadProcess.getAllocationArray().length == tempPrevious.getAllocationArray().length)
                 && (tempPrevious.isAllocated() == false)) {
             System.out.println("first condition");
             merge(tempPrevious, deadProcess);
-        } else if (((count % 2) != 0) && (deadProcess.getAllocationArray().length == tempNext.getAllocationArray().length)
+        }
+	//This case finds out if the index of the dead node is 
+	//odd. In this case, it will merge with the even node that
+	//comes after it.
+       	else if (((count % 2) != 0) && (deadProcess.getAllocationArray().length == tempNext.getAllocationArray().length)
                 && tempNext.isAllocated() == false) {
             System.out.println("second condition");
             merge(deadProcess, tempNext);
-        } else if (((count % 2) == 0) && (deadProcess.getAllocationArray().length == tempNext.getAllocationArray().length)
+        }
+	//This case will check to see if the index of the dead node is
+	//even. In this case, it will merge the node with odd node that 
+	//comes after it. 
+	//
+	//To summarize this entire block of if-elses, if you have 
+	//4 memoryNodes each of size 64, it will prioritize merging
+	//nodes 1+2 and 3+4 before merging nodes 2+3.
+       	else if (((count % 2) == 0) && (deadProcess.getAllocationArray().length == tempNext.getAllocationArray().length)
                 && (tempNext.isAllocated() == false)) {
             System.out.println("third condition");
             merge(deadProcess, tempNext);
@@ -191,9 +213,22 @@ public class BuddyAllocation extends MemoryModel {
             System.out.println("Cannot merge at this time.");
         }
 
+	//Checks to see if the stack is empty
+	//after previous operations have been performed.
         allClear();
     }
 
+    //This method is a helper method
+    //for allocate process. The purpose is to
+    //find the size of a memory node that will fit a process
+    //while leaving the least memory unused.
+    //
+    //@param Size the integer size of the process for which you want to 
+    //find the most fitting memoryNode.
+    //
+    //@return the most appropriate sized block
+    //(will always be a power of 2) for the 
+    //passed in process size.
     public int findBestFit(int Size) {
 
         boolean bestSize = false;
@@ -209,6 +244,12 @@ public class BuddyAllocation extends MemoryModel {
         return bestFit;
     }
 
+    //This method is a helper method
+    //for allocate process. It will find the 
+    //MemoryNode in the linked list that is the smallest
+    //block of memory.
+    //
+    //@return the smallest MemoryNode in the linked list.
     public MemoryNode findSmall() {
         MemoryNode search = mNode;
 
@@ -233,6 +274,14 @@ public class BuddyAllocation extends MemoryModel {
         return smallest;
     }
 
+    //This method will allocate a process to the
+    //linked list of MemoryNodes that represents 
+    //the memory stack.
+    //
+    //@param Process the process to be allocated.
+    //
+    //@return true if the process was able to be 
+    //pushed to the stack, false if unable.
     public boolean allocateProcess(Process p) {
         boolean bestSize = false;
         int bestFit = findBestFit(p.getSize());
@@ -242,8 +291,14 @@ public class BuddyAllocation extends MemoryModel {
         MemoryNode toAllocate = null;
         int iterations = 1;
 
+	//will iterate until process assigned,
+	//or iterations limit is reached. The limit
+	//will only be reached when all options have 
+	//been exhausted.
         while (bestSize == false) {
             sNode = mNode;
+	    //Iterates through collection and allocates process
+	    //if an adequate node is found.
             while (sNode != null && bestSize == false) {
                 if ((sNode.getAllocationArray().length == bestFit) && (sNode.isAllocated() == false)) {
                     bestSize = true;
@@ -252,6 +307,8 @@ public class BuddyAllocation extends MemoryModel {
                     sNode = sNode.getNext();
                 }
             }
+	    //If an adequate place in memory hasn't been found,
+	    //the smallest node in the memory stack will be split
             if (bestSize == false) {
                 sNode = mNode;
                 System.out.println("Split to fit!");
@@ -262,6 +319,14 @@ public class BuddyAllocation extends MemoryModel {
                     System.out.println("Here");
                     int x = p.getSize();
                     boolean hasSplit = false;
+		    //The first condition of the while loop was 256 in my code
+		    //I don't know why it was changed but I don't want to break anything
+		    //
+		    //Essentially what this loop does is it will continually double
+		    //the size of the node to be split until it can find a node that
+		    //will hold the new process to be allocated. Once an appropriate
+		    //node is found, that node is split and the loop starts over from the top
+		    //and attempts to allocate the process in question.
                     while (x <= sNode.getAllocationArray().length && !hasSplit) {
                         x = x * 2;
                         x = findBestFit(x);
@@ -284,8 +349,9 @@ public class BuddyAllocation extends MemoryModel {
                 sNode = mNode;
             }
             iterations++;
-            if (iterations > 4) {
-                break;
+	    //Max iterations limit.
+            if (iterations > 12) {
+                bestSize = true;
             }
         }
 
@@ -305,6 +371,11 @@ public class BuddyAllocation extends MemoryModel {
     }
 
 
+    //This method will reset the MemoryStack if
+    //there are no processes allocated.
+    //
+    //@return false if there is a process on the stack,
+    //true if the stack is clear.
     public boolean allClear() {
         boolean anyAllocated = false;
         MemoryNode n = this.mNode;
