@@ -9,6 +9,7 @@ import javafx.application.Application;
 
 import java.util.*;
 
+//This class controls the GUI, generates processes, updates the process table etc.
 public class MemoryController {
     Queue<Process> waitingProcess;
     FirstFitAllocator firstFitAllocator;
@@ -19,7 +20,7 @@ public class MemoryController {
     }
 
     public void initView() throws Exception {
-        Application.launch(MemoryView.class, null);
+        Application.launch(MemoryView.class, null); //launches GUI
     }
 
     public ProcessGui generateProcess() {
@@ -28,31 +29,31 @@ public class MemoryController {
 
         int size = rand.nextInt(245) + 10;
         int timeLeft = rand.nextInt(9) + 1;
-        int pid = rand.nextInt(99999999) + 1;
+        int pid = rand.nextInt(99999999) + 1;  //generating the process fields randomly
         String name = "" + pid;
 
         Process p = new Process(name, size, timeLeft, pid);
-        if (!firstFitAllocator.allocateProcess(p)) {
+        if (!firstFitAllocator.allocateProcess(p)) { //checking to see if process will fit
             waitingProcess.add(p);
         }
         if (size <= 32) {
             pg = new SmallProcess(name, size, timeLeft);
         } else if (size <= 128) {
-            pg = new MediumProcess(name, size, timeLeft);
+            pg = new MediumProcess(name, size, timeLeft);  //creating different sized processes based on the randomly generated size
         } else {
             pg = new LargeProcess(name, size, timeLeft);
         }
         return pg;
     }
-
+    //updates the table and stack. used when a process is added/deleted or when its runtime ends
     public void update(TableView<ProcessGui> table, StackManager manager) {
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
                 try {
-                    decrementCounter(table, manager);
-                    fillWaitingProcesses(table, manager);
+                    decrementCounter(table, manager);  
+                    fillWaitingProcesses(table, manager);  //decrementing the counter and moving any waiting processes up in the queue or into the memory stack
                 } catch (InterruptedException e) {
                     System.out.println("no");
                 }
