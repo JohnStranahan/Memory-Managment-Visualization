@@ -1,2 +1,2 @@
 Here is a list of current ISSUES to be be addressed:
-1.
+1. Race condition affecting timer.
